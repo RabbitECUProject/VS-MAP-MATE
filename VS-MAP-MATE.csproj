@@ -400,39 +400,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\zoom_16xLG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ZoomOut_16xLG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GlyphLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GlyphRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectColumn_361_32.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectRow_362_32.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectCell_363_32.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\color_wheel_32xSM.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Z18XE_ENGINE_SPLASH.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Help_6522_32.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\907.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="AcroPDFLib">
       <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -455,6 +422,8 @@
     <None Include="Resources\DRIVE.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GlyphLeft.png" />
+    <None Include="Resources\GlyphRight.png" />
     <None Include="Resources\NEUTRAL.png" />
   </ItemGroup>
   <ItemGroup>

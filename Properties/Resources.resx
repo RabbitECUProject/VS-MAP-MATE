@@ -121,32 +121,8 @@
   <data name="GlyphLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GlyphLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SelectCell_363_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SelectCell_363_32.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ZoomOut_16xLG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZoomOut_16xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="color_wheel_32xSM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\color_wheel_32xSM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="zoom_16xLG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zoom_16xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Z18XE_ENGINE_SPLASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Z18XE_ENGINE_SPLASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SelectColumn_361_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SelectColumn_361_32.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GlyphRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GlyphRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Help_6522_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Help_6522_32.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SelectRow_362_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SelectRow_362_32.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DRIVE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DRIVE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
