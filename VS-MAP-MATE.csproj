@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68D4C2D0-DF79-44B6-8358-0AA112D9D852}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UDP</RootNamespace>
+    <AssemblyName>MDAC ECUHOST Calibration</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\..\..\MDAC\ECUHOST\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BUILD_WIFI_OFF, BUILD_CAN_8DEVICES,BUILD_NATIVE_USB_OFF</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\..\..\..\MDAC\ECUHOST\</OutputPath>
+    <DefineConstants>TRACE;BUILD_CAN_8DEVICES</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MDACKeyPair.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Arction.WPF.Gauges, Version=1.0.0.4001, Culture=neutral, PublicKeyToken=6484d7bb14b95dd3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ClassLibraryGaugeWrapper\packages\ArctionGaugesWPF.1.0.1.1\lib\net40-client\Arction.WPF.Gauges.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphLib, Version=1.0.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\GraphLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LBIndustrialCtrls, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\LBIndustrialCtrls.dll</HintPath>
+    </Reference>
+    <Reference Include="MDACUDPRP1210Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\MDACUDPRP1210Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="MDACUDSDotNet64Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\MDACUDSDotNet64Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="MDACUSB2CAN64Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\MDACUSB2CAN64Interface.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="MDACUSBInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\MDACUSBInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PacketDotNet, Version=0.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\PacketDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\SharpPcap.dll</HintPath>
+    </Reference>
+    <Reference Include="SurfaceChartWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\SurfaceChartWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GaugeControl.xaml.cs" />
+    <Compile Include="GaugeModelView.cs" />
+    <Compile Include="tclsASAM.cs" />
+    <Compile Include="tclsASCParser.cs" />
+    <Compile Include="tclsAxesEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsAxesEdit.Designer.cs">
+      <DependentUpon>tclsAxesEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsBlobSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsBlobSettings.Designer.cs">
+      <DependentUpon>tclsBlobSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsBMXMsg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tclsCommsInterface.cs" />
+    <Compile Include="tclsDSG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsDSG.Designer.cs">
+      <DependentUpon>tclsDSG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsErrLog.cs" />
+    <Compile Include="tclsHTMLHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsHTMLHelp.Designer.cs">
+      <DependentUpon>tclsHTMLHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsICMeasSegmentView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsICMeasSegmentView.Designer.cs">
+      <DependentUpon>tclsICMeasSegmentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsIniParser.cs" />
+    <Compile Include="tclsCommsChannel.cs" />
+    <Compile Include="tclsConstantData.cs" />
+    <Compile Include="tclsInputsSetupWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsInputsSetupWizard.Designer.cs">
+      <DependentUpon>tclsInputsSetupWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsLogicBlockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsLogicBlockView.Designer.cs">
+      <DependentUpon>tclsLogicBlockView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMDIParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMDIParent.Designer.cs">
+      <DependentUpon>tclsMDIParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsISO15765.cs" />
+    <Compile Include="tclsMeasCurveMapView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMeasCurveMapView.Designer.cs">
+      <DependentUpon>tclsMeasCurveMapView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMeasureSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMeasureSelect.Designer.cs">
+      <DependentUpon>tclsMeasureSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMeasureValueGaugeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMeasureValueGaugeView.Designer.cs">
+      <DependentUpon>tclsMeasureValueGaugeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMeasValueCharView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMeasValueCharView.Designer.cs">
+      <DependentUpon>tclsMeasValueCharView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="tclsAxesEdit.resx">
+      <DependentUpon>tclsAxesEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsBlobSettings.resx">
+      <DependentUpon>tclsBlobSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsDSG.resx">
+      <DependentUpon>tclsDSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsHTMLHelp.resx">
+      <DependentUpon>tclsHTMLHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsICMeasSegmentView.resx">
+      <DependentUpon>tclsICMeasSegmentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsInputsSetupWizard.resx">
+      <DependentUpon>tclsInputsSetupWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsLogicBlockView.resx">
+      <DependentUpon>tclsLogicBlockView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMDIParent.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsMDIParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMeasCurveMapView.resx">
+      <DependentUpon>tclsMeasCurveMapView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMeasureSelect.resx">
+      <DependentUpon>tclsMeasureSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMeasureValueGaugeView.resx">
+      <DependentUpon>tclsMeasureValueGaugeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMeasValueCharView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsMeasValueCharView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsIniEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsIniEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsMeasValueLoggingView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsMeasValueLoggingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsNavTreeView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsNavTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsNotify.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsNotify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsPDFView.resx">
+      <DependentUpon>tclsPDFView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsRoutineControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tclsRoutineControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="tclsSequenceSetupWizard.resx">
+      <DependentUpon>tclsSequenceSetupWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsSplash.resx">
+      <DependentUpon>tclsSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsTuningTargetDisplay.resx">
+      <DependentUpon>tclsTuningTargetDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsTwinLEDDisplay.resx">
+      <DependentUpon>tclsTwinLEDDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MDACKeyPair.snk" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="tclsDataPage.cs" />
+    <Compile Include="tclsECUMemoryPage.cs" />
+    <Compile Include="tclsIniEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsIniEdit.Designer.cs">
+      <DependentUpon>tclsIniEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMeasValueLoggingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsMeasValueLoggingView.Designer.cs">
+      <DependentUpon>tclsMeasValueLoggingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsMicroTimer.cs" />
+    <Compile Include="tclsNavTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsNavTreeView.Designer.cs">
+      <DependentUpon>tclsNavTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsNotify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsNotify.Designer.cs">
+      <DependentUpon>tclsNotify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsPDFView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsPDFView.Designer.cs">
+      <DependentUpon>tclsPDFView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsRegisterUSBDeviceNotification.cs" />
+    <Compile Include="tclsRoutineControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsRoutineControl.Designer.cs">
+      <DependentUpon>tclsRoutineControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsSequenceSetupWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsSequenceSetupWizard.Designer.cs">
+      <DependentUpon>tclsSequenceSetupWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsSplash.Designer.cs">
+      <DependentUpon>tclsSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsTuningTargetDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsTuningTargetDisplay.Designer.cs">
+      <DependentUpon>tclsTuningTargetDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsTwinLEDDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="tclsTwinLEDDisplay.Designer.cs">
+      <DependentUpon>tclsTwinLEDDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tclsUDSComms.cs" />
+    <Compile Include="tclsUtilities.cs" />
+    <Compile Include="tclsTransferData.cs" />
+    <Compile Include="tclsUDS.cs" />
+    <Compile Include="tclsXMLCalibrationReaderWriter.cs" />
+    <Compile Include="tclsXMLConfigReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GaugeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomOut_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GlyphLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GlyphRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectColumn_361_32.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRow_362_32.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectCell_363_32.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\color_wheel_32xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Z18XE_ENGINE_SPLASH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help_6522_32.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\907.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DRIVE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NEUTRAL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PARK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\REVERSE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SNOW.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

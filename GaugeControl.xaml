@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ElementHostGaugeTest.MDACCustomGaugeControl" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElementHostGaugeTest"            
+             xmlns:agc="http://www.arction.com/gauges/"       
+    mc:Ignorable="d" Height="360" Width="360">
+    <Grid>
+        <Grid.Background>
+            <RadialGradientBrush RadiusY="1" RadiusX="1">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="White"/>
+                <GradientStop Color="Black" Offset="0.665"/>
+                <GradientStop Color="White" Offset="0.964"/>
+                <GradientStop Color="Black" Offset="0.932"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <agc:Gauge x:Name="SpeedGauge" Theme="CarMeter" Height="Auto" Width="Auto" Fill="Black" FontWeight="Bold" FontFamily="Verdana" ArcPadding="0" AdjacentPadding="0">
+            <agc:Gauge.Stroke>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF3C3C3C" Offset="0.013"/>
+                    <GradientStop Color="White" Offset="0.979"/>
+                    <GradientStop Color="#FF3C3C3C" Offset="0.946"/>
+                </RadialGradientBrush>
+            </agc:Gauge.Stroke>
+            <agc:Gauge.SecondaryScales>
+                <agc:Scale Name="NormalZone" AngleEnd="{Binding Path=GaugeNormalAngleEnd, UpdateSourceTrigger=PropertyChanged}" AngleBegin="{Binding Path=GaugeNormalAngleStart, UpdateSourceTrigger=PropertyChanged}" StrokeThickness="0" Stroke="#7F000000" Fill="#CC00FF00"/>
+                <agc:Scale Name="YellowZone" Fill="#CCFFFF00" AngleEnd="{Binding Path=GaugeAlertAngleEnd, UpdateSourceTrigger=PropertyChanged}" AngleBegin="{Binding Path=GaugeAlertAngleStart, UpdateSourceTrigger=PropertyChanged}" StrokeThickness="0" Stroke="#7F000000"/>
+                <agc:Scale Name="CriticalZone" Fill="#CCFF0000" AngleBegin="{Binding Path=GaugeAlarmAngleStart, UpdateSourceTrigger=PropertyChanged}" AngleEnd="{Binding Path=GaugeAlarmAngleEnd, UpdateSourceTrigger=PropertyChanged}" StrokeThickness="0" Stroke="#7F000000"/>
+                <agc:Scale Name="Mask" AngleBegin="{Binding Path=GaugeAngleStart, UpdateSourceTrigger=PropertyChanged}" AngleEnd="{Binding Path=GaugeAngleEnd, UpdateSourceTrigger=PropertyChanged}" ArcPadding="10" Fill="Black" ArcStrokeThickness="2" RadiusFactor="0.75" ArcStroke="Black" MinorTickCount="0"/>
+            </agc:Gauge.SecondaryScales>            
+            <agc:Gauge.PrimaryScale>
+                <agc:Scale x:Name="KMHScale" Foreground="#FFF8C317" DialColor2="#CC00FFA2" DialColor3="#9907B0FF" DialLengthFactor="0.92" ArcStroke="#FFF8C317" MinorTickCount="1" MajorTickCount="11" TertiaryTickCount="1" DialColor1="#99FF0000" DialShape="DefaultNeedle" AngleBegin="{Binding Path=GaugeAngleStart, UpdateSourceTrigger=PropertyChanged}" AngleEnd="{Binding Path=GaugeAngleEnd, UpdateSourceTrigger=PropertyChanged}" ArcPadding="-5" ArcStrokeThickness="2" LabelDistance="0.85" FontSize="14" ValueIndicatorDistance="0.6" Value="{Binding Path=GaugeData, UpdateSourceTrigger=PropertyChanged}" RangeBegin="{Binding Path=GaugeMinVal, UpdateSourceTrigger=PropertyChanged}" RangeEnd="{Binding Path=GaugeMaxVal, UpdateSourceTrigger=PropertyChanged}">
+                    <agc:Scale.Label>
+                        <TextBlock Text="{Binding Path=GaugeText, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                    </agc:Scale.Label>
+                    <agc:Scale.MinorTicks>
+                        <agc:MinorTicksLine TickStroke="#FFF8C317" OffsetB="-10" TickThickness="3" OffsetA="-3" LabelsEnabled="False"/>
+                    </agc:Scale.MinorTicks>
+                    <agc:Scale.MajorTicks>
+                        <agc:MajorTicksLine TickStroke="#FFF8C317" LabelBrush="#FFF8C317" LabelOffset="5" TickThickness="5" FontWeight="Bold" FontSize="14" FontStyle="Italic" FontFamily="Verdana" OffsetB="-4" OffsetA="-14"/>
+                    </agc:Scale.MajorTicks>
+                    <agc:Scale.TertiaryTicks>
+                        <agc:TertiaryTicksLine LabelBrush="White" IsTabStop="False" TickStroke="#FFF8C317" OverridesDefaultStyle="True" LabelsEnabled="False" TickThickness="3" OffsetA="-4" OffsetB="-7"/>
+                    </agc:Scale.TertiaryTicks>
+                </agc:Scale>
+            </agc:Gauge.PrimaryScale>
+        </agc:Gauge>
+    </Grid>
+</UserControl>
