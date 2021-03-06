@@ -41,6 +41,7 @@
             this.toolStripButtonSelectRow = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSelectTable = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonColorPicker = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAxes = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPrevious = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNext = new System.Windows.Forms.ToolStripButton();
@@ -55,7 +56,6 @@
             this.toolStripButtonHelp = new System.Windows.Forms.ToolStripButton();
             this.timerCellColour = new System.Windows.Forms.Timer(this.components);
             this.timerAutoTune = new System.Windows.Forms.Timer(this.components);
-            this.toolStripButtonAxes = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.CurveMapToolstrip.SuspendLayout();
             this.SuspendLayout();
@@ -199,6 +199,16 @@
             this.toolStripButtonColorPicker.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonColorPicker.ToolTipText = "Colour Settings";
             // 
+            // toolStripButtonAxes
+            // 
+            this.toolStripButtonAxes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAxes.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAxes.Image")));
+            this.toolStripButtonAxes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAxes.Name = "toolStripButtonAxes";
+            this.toolStripButtonAxes.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonAxes.Text = "toolStripButtonaxes";
+            this.toolStripButtonAxes.Click += new System.EventHandler(this.toolStripButtonAxes_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -317,16 +327,6 @@
             this.timerAutoTune.Enabled = true;
             this.timerAutoTune.Interval = 1000;
             this.timerAutoTune.Tick += new System.EventHandler(this.timerAutoTune_Tick);
-            // 
-            // toolStripButtonAxes
-            // 
-            this.toolStripButtonAxes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonAxes.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAxes.Image")));
-            this.toolStripButtonAxes.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAxes.Name = "toolStripButtonAxes";
-            this.toolStripButtonAxes.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonAxes.Text = "toolStripButtonaxes";
-            this.toolStripButtonAxes.Click += new System.EventHandler(this.toolStripButtonAxes_Click);
             // 
             // tclsMeasCurveMapView
             // 

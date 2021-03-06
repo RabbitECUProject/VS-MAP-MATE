@@ -63,16 +63,6 @@ namespace UDP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap color_wheel_32xSM {
-            get {
-                object obj = ResourceManager.GetObject("color_wheel_32xSM", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DRIVE {
             get {
                 object obj = ResourceManager.GetObject("DRIVE", resourceCulture);
@@ -96,16 +86,6 @@ namespace UDP.Properties {
         internal static System.Drawing.Bitmap GlyphRight {
             get {
                 object obj = ResourceManager.GetObject("GlyphRight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Help_6522_32 {
-            get {
-                object obj = ResourceManager.GetObject("Help_6522_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,69 +123,9 @@ namespace UDP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SelectCell_363_32 {
-            get {
-                object obj = ResourceManager.GetObject("SelectCell_363_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SelectColumn_361_32 {
-            get {
-                object obj = ResourceManager.GetObject("SelectColumn_361_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SelectRow_362_32 {
-            get {
-                object obj = ResourceManager.GetObject("SelectRow_362_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap SNOW {
             get {
                 object obj = ResourceManager.GetObject("SNOW", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Z18XE_ENGINE_SPLASH {
-            get {
-                object obj = ResourceManager.GetObject("Z18XE_ENGINE_SPLASH", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap zoom_16xLG {
-            get {
-                object obj = ResourceManager.GetObject("zoom_16xLG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZoomOut_16xLG {
-            get {
-                object obj = ResourceManager.GetObject("ZoomOut_16xLG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -29,7 +29,6 @@ namespace UDP
         private List<List<UInt32[]>> mlstlstau32CalibrationData;
         List<List<UInt32[]>> mlstlstau32AxisData;
         List<List<UInt32[]>> mlstlstau32BlobData;
-        string mszReturnString;
         string mszCalibrationFileCurrent;
 
         public tclsXMLCalibrationReaderWriter()
@@ -59,8 +58,6 @@ namespace UDP
                 malstBlobLists[iListIDX] = new List<tclsBlobElement>();
                 mailstBlobLists[iListIDX] = malstBlobLists[iListIDX].AsReadOnly();
             }
-
-            mszReturnString = "Errors: none";
         }
 
         public bool boReadCalibrationFile(String szXMLCalibrationFileName, bool boReLoadData, bool boForceReload)

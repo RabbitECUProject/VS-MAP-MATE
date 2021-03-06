@@ -411,13 +411,6 @@ namespace UDP
 
                         lstSettingOptions.AddRange(aszRelativeA2LFiles);
                         break;
-
-
-
-
-
-                        lstSettingOptions.AddRange(aszA2LFiles);
-                        break;
                     }
                 case "SelectedLayoutXML":
                     {

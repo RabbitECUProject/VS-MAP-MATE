@@ -191,23 +191,27 @@ namespace UDP
 
                     switch (ConstantData.UDS.ru8RMBA_MA_LENGTH)
                     {
+                        /* TODO as needed 
                         case 2:
                         {
                             au8Temp = BitConverter.GetBytes((UInt16)u32Arg1);
                             Array.Copy(au8Temp, 0, au8RMBA, ConstantData.UDS.ru8RMBA_MA_OFFSET, ConstantData.UDS.ru8RMBA_MA_LENGTH);
                             break;
                         }
+                        */
                         case 4:
                         {
                             au8Temp = BitConverter.GetBytes(u32Arg1);
                             Array.Copy(au8Temp, 0, au8RMBA, ConstantData.UDS.ru8RMBA_MA_OFFSET, ConstantData.UDS.ru8RMBA_MA_LENGTH);
                             break;
                         }
+                        /* TODO as needed 
                         default:
                         {
                             au8RMBA[ConstantData.UDS.ru8RMBA_MA_OFFSET] = (byte)(u32Arg1 & 0xff);
                             break;
                         }
+                        */
                     }
 
 
@@ -219,11 +223,13 @@ namespace UDP
                                 Array.Copy(au8Temp, 0, au8RMBA, ConstantData.UDS.ru8RMBA_MS_OFFSET, ConstantData.UDS.ru8RMBA_MS_LENGTH);
                                 break;
                             }
+                        /* TODO as needed 
                         default:
                             {
                                 au8RMBA[ConstantData.UDS.ru8RMBA_MS_OFFSET] = (byte)(i32Arg2 & 0xff);
                                 break;
                             }
+                        */
                     }
 
                     lUDSFrameList = mclsISO15765.lstSegmentData(au8RMBA);
@@ -243,23 +249,27 @@ namespace UDP
 
                     switch (ConstantData.UDS.ru8WMBA_MA_LENGTH)
                     {
+                        /* TODO as needed 
                         case 2:
                             {
                                 au8Temp = BitConverter.GetBytes((UInt16)u32Arg1);
                                 Array.Copy(au8Temp, 0, au8WMBA, ConstantData.UDS.ru8WMBA_MA_OFFSET, ConstantData.UDS.ru8WMBA_MA_LENGTH);
                                 break;
                             }
+                        */
                         case 4:
                             {
                                 au8Temp = BitConverter.GetBytes(u32Arg1);
                                 Array.Copy(au8Temp, 0, au8WMBA, ConstantData.UDS.ru8WMBA_MA_OFFSET, ConstantData.UDS.ru8WMBA_MA_LENGTH);
                                 break;
                             }
+                        /* TODO as needed 
                         default:
                             {
                                 au8WMBA[ConstantData.UDS.ru8WMBA_MA_OFFSET] = (byte)(u32Arg1 & 0xff);
                                 break;
                             }
+                        */
                     }
 
                     switch (ConstantData.UDS.ru8WMBA_MS_LENGTH)
@@ -270,11 +280,13 @@ namespace UDP
                                 Array.Copy(au8Temp, 0, au8WMBA, ConstantData.UDS.ru8WMBA_MS_OFFSET, ConstantData.UDS.ru8WMBA_MS_LENGTH);
                                 break;
                             }
+                        /* TODO as needed 
                         default:
                             {
                                 au8WMBA[ConstantData.UDS.ru8WMBA_MS_OFFSET] = (byte)(i32Arg2 & 0xff);
                                 break;
                             }
+                        */
                     }
 
                     byte[] au8WMBAWithData = new byte[au8WMBA.Length + au8Data.Length];

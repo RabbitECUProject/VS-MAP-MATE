@@ -30,28 +30,28 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tclsInputsSetupWizard));
             this.groupBoxCrank = new System.Windows.Forms.GroupBox();
-            this.comboBoxTriggerSensorType = new System.Windows.Forms.ComboBox();
             this.comboBoxTriggerSensorStrength = new System.Windows.Forms.ComboBox();
+            this.comboBoxTriggerSensorType = new System.Windows.Forms.ComboBox();
             this.comboBoxCamSensorStrength = new System.Windows.Forms.ComboBox();
             this.comboBoxSyncSensorType = new System.Windows.Forms.ComboBox();
             this.groupBoxCam = new System.Windows.Forms.GroupBox();
             this.groupBoxAnalog = new System.Windows.Forms.GroupBox();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.labelCTS = new System.Windows.Forms.Label();
-            this.labelATS = new System.Windows.Forms.Label();
-            this.labelTPS = new System.Windows.Forms.Label();
-            this.labelMAP = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxCTS = new System.Windows.Forms.ComboBox();
-            this.comboBoxATS = new System.Windows.Forms.ComboBox();
-            this.comboBoxTPS = new System.Windows.Forms.ComboBox();
-            this.comboBoxMAP = new System.Windows.Forms.ComboBox();
-            this.comboBoxAFM = new System.Windows.Forms.ComboBox();
-            this.checkBoxCTSCAN = new System.Windows.Forms.CheckBox();
-            this.checkBoxATSCAN = new System.Windows.Forms.CheckBox();
-            this.checkBoxTPSCAN = new System.Windows.Forms.CheckBox();
-            this.checkBoxMAPCAN = new System.Windows.Forms.CheckBox();
             this.checkBoxPPSCAN = new System.Windows.Forms.CheckBox();
+            this.checkBoxMAPCAN = new System.Windows.Forms.CheckBox();
+            this.checkBoxTPSCAN = new System.Windows.Forms.CheckBox();
+            this.checkBoxATSCAN = new System.Windows.Forms.CheckBox();
+            this.checkBoxCTSCAN = new System.Windows.Forms.CheckBox();
+            this.comboBoxAFM = new System.Windows.Forms.ComboBox();
+            this.comboBoxMAP = new System.Windows.Forms.ComboBox();
+            this.comboBoxTPS = new System.Windows.Forms.ComboBox();
+            this.comboBoxATS = new System.Windows.Forms.ComboBox();
+            this.comboBoxCTS = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelMAP = new System.Windows.Forms.Label();
+            this.labelTPS = new System.Windows.Forms.Label();
+            this.labelATS = new System.Windows.Forms.Label();
+            this.labelCTS = new System.Windows.Forms.Label();
+            this.buttonOK = new System.Windows.Forms.Button();
             this.groupBoxCrank.SuspendLayout();
             this.groupBoxCam.SuspendLayout();
             this.groupBoxAnalog.SuspendLayout();
@@ -68,15 +68,6 @@
             this.groupBoxCrank.TabStop = false;
             this.groupBoxCrank.Text = "Crank Trigger";
             // 
-            // comboBoxTriggerSensorType
-            // 
-            this.comboBoxTriggerSensorType.FormattingEnabled = true;
-            this.comboBoxTriggerSensorType.Location = new System.Drawing.Point(6, 19);
-            this.comboBoxTriggerSensorType.Name = "comboBoxTriggerSensorType";
-            this.comboBoxTriggerSensorType.Size = new System.Drawing.Size(172, 21);
-            this.comboBoxTriggerSensorType.TabIndex = 0;
-            this.comboBoxTriggerSensorType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTriggerSensorType_SelectedIndexChanged);
-            // 
             // comboBoxTriggerSensorStrength
             // 
             this.comboBoxTriggerSensorStrength.FormattingEnabled = true;
@@ -85,6 +76,15 @@
             this.comboBoxTriggerSensorStrength.Size = new System.Drawing.Size(169, 21);
             this.comboBoxTriggerSensorStrength.TabIndex = 1;
             this.comboBoxTriggerSensorStrength.SelectedIndexChanged += new System.EventHandler(this.comboBoxTriggerSensorStrength_SelectedIndexChanged);
+            // 
+            // comboBoxTriggerSensorType
+            // 
+            this.comboBoxTriggerSensorType.FormattingEnabled = true;
+            this.comboBoxTriggerSensorType.Location = new System.Drawing.Point(6, 19);
+            this.comboBoxTriggerSensorType.Name = "comboBoxTriggerSensorType";
+            this.comboBoxTriggerSensorType.Size = new System.Drawing.Size(172, 21);
+            this.comboBoxTriggerSensorType.TabIndex = 0;
+            this.comboBoxTriggerSensorType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTriggerSensorType_SelectedIndexChanged);
             // 
             // comboBoxCamSensorStrength
             // 
@@ -139,133 +139,16 @@
             this.groupBoxAnalog.TabStop = false;
             this.groupBoxAnalog.Text = "Analog Inputs";
             // 
-            // buttonOK
+            // checkBoxPPSCAN
             // 
-            this.buttonOK.Location = new System.Drawing.Point(529, 342);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(88, 23);
-            this.buttonOK.TabIndex = 7;
-            this.buttonOK.Text = "Apply";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // labelCTS
-            // 
-            this.labelCTS.AutoSize = true;
-            this.labelCTS.Location = new System.Drawing.Point(13, 35);
-            this.labelCTS.Name = "labelCTS";
-            this.labelCTS.Size = new System.Drawing.Size(136, 13);
-            this.labelCTS.TabIndex = 0;
-            this.labelCTS.Text = "Coolant Temp Sensor Input";
-            // 
-            // labelATS
-            // 
-            this.labelATS.AutoSize = true;
-            this.labelATS.Location = new System.Drawing.Point(13, 62);
-            this.labelATS.Name = "labelATS";
-            this.labelATS.Size = new System.Drawing.Size(112, 13);
-            this.labelATS.TabIndex = 1;
-            this.labelATS.Text = "Air Temp Sensor Input";
-            // 
-            // labelTPS
-            // 
-            this.labelTPS.AutoSize = true;
-            this.labelTPS.Location = new System.Drawing.Point(13, 89);
-            this.labelTPS.Name = "labelTPS";
-            this.labelTPS.Size = new System.Drawing.Size(146, 13);
-            this.labelTPS.TabIndex = 2;
-            this.labelTPS.Text = "Throttle Position Sensor Input";
-            // 
-            // labelMAP
-            // 
-            this.labelMAP.AutoSize = true;
-            this.labelMAP.Location = new System.Drawing.Point(13, 116);
-            this.labelMAP.Name = "labelMAP";
-            this.labelMAP.Size = new System.Drawing.Size(154, 13);
-            this.labelMAP.TabIndex = 3;
-            this.labelMAP.Text = "Manifold Pressure Sensor Input";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 143);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Air Flow Sensor Input";
-            // 
-            // comboBoxCTS
-            // 
-            this.comboBoxCTS.FormattingEnabled = true;
-            this.comboBoxCTS.Location = new System.Drawing.Point(184, 27);
-            this.comboBoxCTS.Name = "comboBoxCTS";
-            this.comboBoxCTS.Size = new System.Drawing.Size(324, 21);
-            this.comboBoxCTS.TabIndex = 5;
-            // 
-            // comboBoxATS
-            // 
-            this.comboBoxATS.FormattingEnabled = true;
-            this.comboBoxATS.Location = new System.Drawing.Point(184, 54);
-            this.comboBoxATS.Name = "comboBoxATS";
-            this.comboBoxATS.Size = new System.Drawing.Size(324, 21);
-            this.comboBoxATS.TabIndex = 6;
-            // 
-            // comboBoxTPS
-            // 
-            this.comboBoxTPS.FormattingEnabled = true;
-            this.comboBoxTPS.Location = new System.Drawing.Point(184, 81);
-            this.comboBoxTPS.Name = "comboBoxTPS";
-            this.comboBoxTPS.Size = new System.Drawing.Size(324, 21);
-            this.comboBoxTPS.TabIndex = 7;
-            // 
-            // comboBoxMAP
-            // 
-            this.comboBoxMAP.FormattingEnabled = true;
-            this.comboBoxMAP.Location = new System.Drawing.Point(184, 108);
-            this.comboBoxMAP.Name = "comboBoxMAP";
-            this.comboBoxMAP.Size = new System.Drawing.Size(324, 21);
-            this.comboBoxMAP.TabIndex = 8;
-            // 
-            // comboBoxAFM
-            // 
-            this.comboBoxAFM.FormattingEnabled = true;
-            this.comboBoxAFM.Location = new System.Drawing.Point(184, 135);
-            this.comboBoxAFM.Name = "comboBoxAFM";
-            this.comboBoxAFM.Size = new System.Drawing.Size(324, 21);
-            this.comboBoxAFM.TabIndex = 9;
-            // 
-            // checkBoxCTSCAN
-            // 
-            this.checkBoxCTSCAN.AutoSize = true;
-            this.checkBoxCTSCAN.Location = new System.Drawing.Point(533, 29);
-            this.checkBoxCTSCAN.Name = "checkBoxCTSCAN";
-            this.checkBoxCTSCAN.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxCTSCAN.TabIndex = 10;
-            this.checkBoxCTSCAN.Text = "CTS CAN";
-            this.checkBoxCTSCAN.UseVisualStyleBackColor = true;
-            this.checkBoxCTSCAN.CheckedChanged += new System.EventHandler(this.checkBoxCTSCAN_CheckedChanged);
-            // 
-            // checkBoxATSCAN
-            // 
-            this.checkBoxATSCAN.AutoSize = true;
-            this.checkBoxATSCAN.Location = new System.Drawing.Point(533, 58);
-            this.checkBoxATSCAN.Name = "checkBoxATSCAN";
-            this.checkBoxATSCAN.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxATSCAN.TabIndex = 11;
-            this.checkBoxATSCAN.Text = "ATS CAN";
-            this.checkBoxATSCAN.UseVisualStyleBackColor = true;
-            this.checkBoxATSCAN.CheckedChanged += new System.EventHandler(this.checkBoxATSCAN_CheckedChanged);
-            // 
-            // checkBoxTPSCAN
-            // 
-            this.checkBoxTPSCAN.AutoSize = true;
-            this.checkBoxTPSCAN.Location = new System.Drawing.Point(533, 85);
-            this.checkBoxTPSCAN.Name = "checkBoxTPSCAN";
-            this.checkBoxTPSCAN.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxTPSCAN.TabIndex = 12;
-            this.checkBoxTPSCAN.Text = "TPS CAN";
-            this.checkBoxTPSCAN.UseVisualStyleBackColor = true;
-            this.checkBoxTPSCAN.CheckedChanged += new System.EventHandler(this.checkBoxTPSCAN_CheckedChanged);
+            this.checkBoxPPSCAN.AutoSize = true;
+            this.checkBoxPPSCAN.Location = new System.Drawing.Point(533, 137);
+            this.checkBoxPPSCAN.Name = "checkBoxPPSCAN";
+            this.checkBoxPPSCAN.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxPPSCAN.TabIndex = 14;
+            this.checkBoxPPSCAN.Text = "PPS CAN";
+            this.checkBoxPPSCAN.UseVisualStyleBackColor = true;
+            this.checkBoxPPSCAN.CheckedChanged += new System.EventHandler(this.checkBoxPPSCAN_CheckedChanged);
             // 
             // checkBoxMAPCAN
             // 
@@ -278,16 +161,133 @@
             this.checkBoxMAPCAN.UseVisualStyleBackColor = true;
             this.checkBoxMAPCAN.CheckedChanged += new System.EventHandler(this.checkBoxMAPCAN_CheckedChanged);
             // 
-            // checkBoxPPSCAN
+            // checkBoxTPSCAN
             // 
-            this.checkBoxPPSCAN.AutoSize = true;
-            this.checkBoxPPSCAN.Location = new System.Drawing.Point(533, 137);
-            this.checkBoxPPSCAN.Name = "checkBoxPPSCAN";
-            this.checkBoxPPSCAN.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxPPSCAN.TabIndex = 14;
-            this.checkBoxPPSCAN.Text = "PPS CAN";
-            this.checkBoxPPSCAN.UseVisualStyleBackColor = true;
-            this.checkBoxPPSCAN.CheckedChanged += new System.EventHandler(this.checkBoxPPSCAN_CheckedChanged);
+            this.checkBoxTPSCAN.AutoSize = true;
+            this.checkBoxTPSCAN.Location = new System.Drawing.Point(533, 85);
+            this.checkBoxTPSCAN.Name = "checkBoxTPSCAN";
+            this.checkBoxTPSCAN.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxTPSCAN.TabIndex = 12;
+            this.checkBoxTPSCAN.Text = "TPS CAN";
+            this.checkBoxTPSCAN.UseVisualStyleBackColor = true;
+            this.checkBoxTPSCAN.CheckedChanged += new System.EventHandler(this.checkBoxTPSCAN_CheckedChanged);
+            // 
+            // checkBoxATSCAN
+            // 
+            this.checkBoxATSCAN.AutoSize = true;
+            this.checkBoxATSCAN.Location = new System.Drawing.Point(533, 58);
+            this.checkBoxATSCAN.Name = "checkBoxATSCAN";
+            this.checkBoxATSCAN.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxATSCAN.TabIndex = 11;
+            this.checkBoxATSCAN.Text = "ATS CAN";
+            this.checkBoxATSCAN.UseVisualStyleBackColor = true;
+            this.checkBoxATSCAN.CheckedChanged += new System.EventHandler(this.checkBoxATSCAN_CheckedChanged);
+            // 
+            // checkBoxCTSCAN
+            // 
+            this.checkBoxCTSCAN.AutoSize = true;
+            this.checkBoxCTSCAN.Location = new System.Drawing.Point(533, 29);
+            this.checkBoxCTSCAN.Name = "checkBoxCTSCAN";
+            this.checkBoxCTSCAN.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxCTSCAN.TabIndex = 10;
+            this.checkBoxCTSCAN.Text = "CTS CAN";
+            this.checkBoxCTSCAN.UseVisualStyleBackColor = true;
+            this.checkBoxCTSCAN.CheckedChanged += new System.EventHandler(this.checkBoxCTSCAN_CheckedChanged);
+            // 
+            // comboBoxAFM
+            // 
+            this.comboBoxAFM.FormattingEnabled = true;
+            this.comboBoxAFM.Location = new System.Drawing.Point(184, 135);
+            this.comboBoxAFM.Name = "comboBoxAFM";
+            this.comboBoxAFM.Size = new System.Drawing.Size(324, 21);
+            this.comboBoxAFM.TabIndex = 9;
+            // 
+            // comboBoxMAP
+            // 
+            this.comboBoxMAP.FormattingEnabled = true;
+            this.comboBoxMAP.Location = new System.Drawing.Point(184, 108);
+            this.comboBoxMAP.Name = "comboBoxMAP";
+            this.comboBoxMAP.Size = new System.Drawing.Size(324, 21);
+            this.comboBoxMAP.TabIndex = 8;
+            // 
+            // comboBoxTPS
+            // 
+            this.comboBoxTPS.FormattingEnabled = true;
+            this.comboBoxTPS.Location = new System.Drawing.Point(184, 81);
+            this.comboBoxTPS.Name = "comboBoxTPS";
+            this.comboBoxTPS.Size = new System.Drawing.Size(324, 21);
+            this.comboBoxTPS.TabIndex = 7;
+            // 
+            // comboBoxATS
+            // 
+            this.comboBoxATS.FormattingEnabled = true;
+            this.comboBoxATS.Location = new System.Drawing.Point(184, 54);
+            this.comboBoxATS.Name = "comboBoxATS";
+            this.comboBoxATS.Size = new System.Drawing.Size(324, 21);
+            this.comboBoxATS.TabIndex = 6;
+            // 
+            // comboBoxCTS
+            // 
+            this.comboBoxCTS.FormattingEnabled = true;
+            this.comboBoxCTS.Location = new System.Drawing.Point(184, 27);
+            this.comboBoxCTS.Name = "comboBoxCTS";
+            this.comboBoxCTS.Size = new System.Drawing.Size(324, 21);
+            this.comboBoxCTS.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 143);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Air Flow Sensor Input";
+            // 
+            // labelMAP
+            // 
+            this.labelMAP.AutoSize = true;
+            this.labelMAP.Location = new System.Drawing.Point(13, 116);
+            this.labelMAP.Name = "labelMAP";
+            this.labelMAP.Size = new System.Drawing.Size(154, 13);
+            this.labelMAP.TabIndex = 3;
+            this.labelMAP.Text = "Manifold Pressure Sensor Input";
+            // 
+            // labelTPS
+            // 
+            this.labelTPS.AutoSize = true;
+            this.labelTPS.Location = new System.Drawing.Point(13, 89);
+            this.labelTPS.Name = "labelTPS";
+            this.labelTPS.Size = new System.Drawing.Size(146, 13);
+            this.labelTPS.TabIndex = 2;
+            this.labelTPS.Text = "Throttle Position Sensor Input";
+            // 
+            // labelATS
+            // 
+            this.labelATS.AutoSize = true;
+            this.labelATS.Location = new System.Drawing.Point(13, 62);
+            this.labelATS.Name = "labelATS";
+            this.labelATS.Size = new System.Drawing.Size(112, 13);
+            this.labelATS.TabIndex = 1;
+            this.labelATS.Text = "Air Temp Sensor Input";
+            // 
+            // labelCTS
+            // 
+            this.labelCTS.AutoSize = true;
+            this.labelCTS.Location = new System.Drawing.Point(13, 35);
+            this.labelCTS.Name = "labelCTS";
+            this.labelCTS.Size = new System.Drawing.Size(136, 13);
+            this.labelCTS.TabIndex = 0;
+            this.labelCTS.Text = "Coolant Temp Sensor Input";
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(529, 342);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(88, 23);
+            this.buttonOK.TabIndex = 7;
+            this.buttonOK.Text = "Apply";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // tclsInputsSetupWizard
             // 

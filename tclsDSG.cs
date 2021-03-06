@@ -71,6 +71,11 @@ namespace UDP
             SetWindowView(true);
         }
 
+        public void AddViewToList(int iFormIDX)
+        {
+            /* TODO as needed */
+        }
+
         public void SetWindowView(bool boSetup)
         {
             int iMeasureIDX = 0;

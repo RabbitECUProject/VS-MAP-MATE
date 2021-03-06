@@ -41,7 +41,6 @@ namespace UDP
         String[] maszVarCompuMethodFormat;
         List<int> mlstFormIndices;
         bool mboInitialising;
-        bool mboSuspendUpdates;
         bool mboRequestShutdown;
         int miFormIDX;
 
@@ -60,8 +59,6 @@ namespace UDP
             int iCharacteristicIDX = 0;
             int iElementIDX;
             int iVerticalElementCount = 0;
-
-            mboSuspendUpdates = true;
 
             maclsWindowElement = new tclsWindowElement[Program.mAPP_clsXMLConfig.mailstWindowLists[miFormIDX].Count];
 
@@ -219,8 +216,6 @@ namespace UDP
             }
 
             this.OnResize(EventArgs.Empty);
-
-            mboSuspendUpdates = false;
         }
 
         public void RequestShowViewIndex(int iFormReqIDX)
@@ -231,7 +226,6 @@ namespace UDP
                 {
                     Program.vNotifyProgramEvent(tenProgramEvent.enCommRequestSuspend, 0, null);
                     miFormIDX = iFormIDX;
-                    //SetWindowView(false);
                     Program.vNotifyProgramEvent(tenProgramEvent.enCommRequestUnSuspend, 0, null);
                     break;
                 }

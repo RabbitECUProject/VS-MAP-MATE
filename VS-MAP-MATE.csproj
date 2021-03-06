@@ -126,6 +126,11 @@
   <ItemGroup>
     <Compile Include="GaugeControl.xaml.cs" />
     <Compile Include="GaugeModelView.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="tclsASAM.cs" />
     <Compile Include="tclsASCParser.cs" />
     <Compile Include="tclsAxesEdit.cs">
@@ -251,8 +256,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsIniEdit.resx">
       <SubType>Designer</SubType>
@@ -261,6 +266,9 @@
     <EmbeddedResource Include="tclsMeasValueLoggingView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>tclsMeasValueLoggingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsNavGraphicalTreeView.resx">
+      <DependentUpon>tclsNavGraphicalTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsNavTreeView.resx">
       <SubType>Designer</SubType>
@@ -277,11 +285,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>tclsRoutineControl.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="tclsSequenceSetupWizard.resx">
       <DependentUpon>tclsSequenceSetupWizard.cs</DependentUpon>
     </EmbeddedResource>
@@ -322,6 +325,12 @@
       <DependentUpon>tclsMeasValueLoggingView.cs</DependentUpon>
     </Compile>
     <Compile Include="tclsMicroTimer.cs" />
+    <Compile Include="tclsNavGraphicalTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsNavGraphicalTreeView.Designer.cs">
+      <DependentUpon>tclsNavGraphicalTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="tclsNavTreeView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -400,6 +409,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\907.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="AcroPDFLib">
       <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -434,6 +446,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SNOW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\BLOB_36.bmp" />
+    <Content Include="Resources\CURVE_36.bmp" />
+    <Content Include="Resources\DSG_36.bmp" />
+    <Content Include="Resources\GAUGE_36.bmp" />
+    <Content Include="Resources\LOGGING_36.bmp" />
+    <Content Include="Resources\LOGIC_36.bmp" />
+    <Content Include="Resources\MAP_36.bmp" />
+    <Content Include="Resources\SETTING_36.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

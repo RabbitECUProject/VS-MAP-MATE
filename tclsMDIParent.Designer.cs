@@ -58,14 +58,14 @@ namespace UDP
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSplitView = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitHelp = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.MDIStatusStrip = new System.Windows.Forms.StatusStrip();
             this.ConnectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
-            this.toolStripSplitHelp = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.MDIParentStrip.SuspendLayout();
             this.MDIStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -118,7 +118,7 @@ namespace UDP
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -261,7 +261,7 @@ namespace UDP
             this.clearMessagesToolStripMenuItem});
             this.toolStripSplitButtonTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButtonTools.Name = "toolStripSplitButtonTools";
-            this.toolStripSplitButtonTools.Size = new System.Drawing.Size(51, 22);
+            this.toolStripSplitButtonTools.Size = new System.Drawing.Size(50, 22);
             this.toolStripSplitButtonTools.Text = "Tools";
             // 
             // replayScriptToolStripMenuItem
@@ -300,6 +300,24 @@ namespace UDP
             this.toolStripMenuItem2.Size = new System.Drawing.Size(157, 22);
             this.toolStripMenuItem2.Text = "Arrange Default";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripSplitHelp
+            // 
+            this.toolStripSplitHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3});
+            this.toolStripSplitHelp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitHelp.Image")));
+            this.toolStripSplitHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitHelp.Name = "toolStripSplitHelp";
+            this.toolStripSplitHelp.Size = new System.Drawing.Size(48, 22);
+            this.toolStripSplitHelp.Text = "&Help";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(178, 22);
+            this.toolStripMenuItem3.Text = "MAP-MATE Manual";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // MDIStatusStrip
             // 
@@ -351,24 +369,6 @@ namespace UDP
             this.ConnectionImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.ConnectionImageList.Images.SetKeyName(0, "CONNECTED_ICON.bmp");
             this.ConnectionImageList.Images.SetKeyName(1, "DISCONNECTED_ICON.bmp");
-            // 
-            // toolStripSplitHelp
-            // 
-            this.toolStripSplitHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3});
-            this.toolStripSplitHelp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitHelp.Image")));
-            this.toolStripSplitHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitHelp.Name = "toolStripSplitHelp";
-            this.toolStripSplitHelp.Size = new System.Drawing.Size(48, 22);
-            this.toolStripSplitHelp.Text = "&Help";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem3.Text = "MAP-MATE Manual";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // tclsMDIParent
             // 

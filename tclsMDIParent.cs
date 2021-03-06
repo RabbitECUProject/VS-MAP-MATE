@@ -51,7 +51,7 @@ namespace UDP
         public static List<tclsMeasValueGaugeView> mlstMeasValueGaugeView;
         public static List<tclsLogicBlockView> mlstLogicBlockView;
         public static List<tclsDSG> mlstDSGView;
-        tclsNavTreeView mclsNavTreeView;
+        tclsNavGraphicalTreeView mclsNavTreeView;
         tclsBlobSettings mclsBlobSettings;
         List<Form> mlstChildViews;
         List<tclsMeasValueLoggingView> mlstLoggingViews;
@@ -117,7 +117,7 @@ namespace UDP
                 mclsCommsTimer.Enabled= true;
             }
 
-            mclsNavTreeView = new tclsNavTreeView();
+            mclsNavTreeView = new tclsNavGraphicalTreeView();
             mclsNavTreeView.MdiParent = this;
             mclsNavTreeView.Show();
 
@@ -145,9 +145,9 @@ namespace UDP
             int iCharViewCountMax = 1;
             int iSegmentViewCountMax = 1;
             int iGaugeViewCountMax = 1;
-            //todoint iDSGViewCountMax = 1;
+            int iDSGViewCountMax = 1;
             int iLogicBlockViews = 0;
-            //todoint iLogicBlockViewCountMax = 1;
+            int iLogicBlockViewCountMax = 1;
             int iMeasValueCharViewLastChildIndex = 1;
             int iMeasSegmentViewLastChildIndex = 1;
             int iMeasTableViewLastChildIndex = 1;
@@ -156,6 +156,7 @@ namespace UDP
             int iMeasGaugeViewLastChildIndex = 1;
             int iMeasCharConfigViewLastChildIndex = 1;
             int iLogicBlockViewLastChildIndex = 1;
+            int iDSGViewLastChildIndex = 1;
             string szSegmentViewCountMax;
             string szMapViewCountMax;
             string szTableViewCountMax;
@@ -250,7 +251,7 @@ namespace UDP
                                 }
                             }
 
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasValueCharViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasValueCharViewLastChildIndex, tenWindowChildType.enMeasValueView);
                             iFormIDX++;
                             break;
                         }
@@ -275,7 +276,7 @@ namespace UDP
                                 }
                             }
 
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasTableViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasTableViewLastChildIndex, tenWindowChildType.enMeasTableView);
                             iFormIDX++;
                             break;
                         }
@@ -290,7 +291,7 @@ namespace UDP
                             mlstMeasValueLoggingView.Add(clsMeasValueLoggingView);
 
                             iLoggingViewLastChildIndex = mlstChildViews.Count;
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLoggingViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLoggingViewLastChildIndex, tenWindowChildType.enLoggingView);
                             iFormIDX++;
 
                             break;
@@ -316,7 +317,7 @@ namespace UDP
                                 }                                                        
                             }
 
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasMapViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasMapViewLastChildIndex, tenWindowChildType.enMeasMapView);
                             iFormIDX++;
                             break;
                         }
@@ -329,8 +330,7 @@ namespace UDP
                             mlstChildViews.Add(clsMeasValueGaugeView);
                             mlstMeasValueGaugeView.Add(clsMeasValueGaugeView);
                             iMeasGaugeViewLastChildIndex = mlstChildViews.Count;
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasGaugeViewLastChildIndex);
-
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasGaugeViewLastChildIndex, tenWindowChildType.enMeasGaugeView);
                             iFormIDX++;
                             break;
                         }
@@ -343,7 +343,7 @@ namespace UDP
                                 mclsBlobSettings.Show();
                                 mlstChildViews.Add(mclsBlobSettings);
                                 iMeasCharConfigViewLastChildIndex = mlstChildViews.Count;
-                                mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasCharConfigViewLastChildIndex);
+                                mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasCharConfigViewLastChildIndex, tenWindowChildType.enMeasCharConfigView);
                             }
                             else
                             {
@@ -375,26 +375,30 @@ namespace UDP
                                 }
                             }
 
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasSegmentViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasSegmentViewLastChildIndex, tenWindowChildType.enMeasSegmentView);
                             iFormIDX++;
                             break;
                         }
                     case tenWindowChildType.enLogicBlockView:
                         {
-                            tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
-                            clsLogicBlockView.MdiParent = this;
-                            clsLogicBlockView.Show();
-                            mlstChildViews.Add(clsLogicBlockView);
-                            mlstLogicBlockView.Add(clsLogicBlockView);
-                            iLogicBlockViews++;
-                            iLogicBlockViewLastChildIndex = mlstChildViews.Count;
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex);
-                            iFormIDX++;
+                            if (iLogicBlockViews < iLogicBlockViewCountMax)
+                            {
+                                tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
+                                clsLogicBlockView.MdiParent = this;
+                                clsLogicBlockView.Show();
+                                mlstChildViews.Add(clsLogicBlockView);
+                                mlstLogicBlockView.Add(clsLogicBlockView);
+                                iLogicBlockViews++;
+                                iLogicBlockViewLastChildIndex = mlstChildViews.Count;
+                                mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex, tenWindowChildType.enLogicBlockView);
+                                iFormIDX++;
+                            }
                             break;
+                            /* TODO multiple views */
                         }
                     case tenWindowChildType.enDSGView:
                         {
-                            if (iDSGViews < 1)
+                            if (iDSGViews < iDSGViewCountMax)
                             {
                                 tclsDSG clsDSGView
                                                 = new tclsDSG(iFormIDX);
@@ -402,18 +406,18 @@ namespace UDP
                                 clsDSGView.Show();
                                 mlstChildViews.Add(clsDSGView);
                                 mlstDSGView.Add(clsDSGView);
-                                iMeasSegmentViews++;
-                                iMeasSegmentViewLastChildIndex = mlstChildViews.Count;
+                                iDSGViews++;
+                                iDSGViewLastChildIndex = mlstChildViews.Count;
                             }
                             else
                             {
-                                foreach (tclsICMeasSegmentView clsMeasSegmentView in mlstMeasSegmentView)
+                                foreach (tclsDSG clsDSGView in mlstDSGView)
                                 {
-                                    clsMeasSegmentView.AddViewToList(iFormIDX);
+                                    clsDSGView.AddViewToList(iFormIDX);
                                 }
                             }
 
-                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iMeasSegmentViewLastChildIndex);
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iDSGViewLastChildIndex, tenWindowChildType.enDSGView);
                             iFormIDX++;
                             break;
                         }
@@ -675,33 +679,33 @@ namespace UDP
                         int iFormIDX = iData & 0xff;
                         int iViewIDX = (iData & 0xff00) >> 8;
 
-                        if ((-1 < iFormIDX) && (mlstChildViews.Count > iFormIDX))
+                        if (-1 < iFormIDX)
                         {
-                            mlstChildViews[iFormIDX].BringToFront();
+                            mlstChildViews[iViewIDX - 1].BringToFront();
 
                             foreach (tclsMeasValueCharView clsMeasValueCharView in mlstMeasValueCharView)
                             {
-                                clsMeasValueCharView.RequestShowViewIndex(iViewIDX);
+                                clsMeasValueCharView.RequestShowViewIndex(iFormIDX);
                             }
 
                             foreach (tclsMeasCurveMapView clsMeasCurveMapView in mlstMeasCurveMapView)
                             {
-                                clsMeasCurveMapView.RequestShowViewIndex(iViewIDX);
+                                clsMeasCurveMapView.RequestShowViewIndex(iFormIDX);
                             }
 
                             foreach (tclsICMeasSegmentView clsMeasSegmentView in mlstMeasSegmentView)
                             {
-                                clsMeasSegmentView.RequestShowViewIndex(iViewIDX);
+                                clsMeasSegmentView.RequestShowViewIndex(iFormIDX);
                             }
 
                             foreach (tclsLogicBlockView clsLogicBlockView in  mlstLogicBlockView)
                             {
-                                clsLogicBlockView.RequestShowViewIndex(iViewIDX);
+                                clsLogicBlockView.RequestShowViewIndex(iFormIDX);
                             }
 
                             foreach (tclsDSG clsDSG in mlstDSGView)
                             {
-                                clsDSG.RequestShowViewIndex(iViewIDX);
+                                clsDSG.RequestShowViewIndex(iFormIDX);
                             }
                         }
                         break;

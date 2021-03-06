@@ -63,12 +63,9 @@ namespace UDP
         static List<tstReg8Write> mlstReg8RepeatWrite;
         static int miSequence;
         static int miSequencePending;
-        static int miRepeat8Index;
         static int miRepeat16Index;
-        static int miRepeat32Index;
         static bool boCRC16ReportOK;
         static bool boCRC16Pending;
-        static bool mboSort8Pending;
         static bool mboSort16Pending;
         static bool mboSort32Pending;
 

@@ -86,9 +86,6 @@ namespace UDP
 
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button ExitButton;
-        private System.Windows.Forms.Label SectionLabel;
-        private System.Windows.Forms.Label SettingLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel SettingsPanel;
     }
 }

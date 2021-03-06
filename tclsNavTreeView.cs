@@ -21,7 +21,6 @@ namespace UDP
 {
     public partial class tclsNavTreeView : Form
     {
-        List<string> mlstViewNodeText;
         int[] maMDIChildIDX;
         bool mboRequestShutdown;
 

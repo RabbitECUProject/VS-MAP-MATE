@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tclsDSG));
             this.pictureBoxDSG = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDSG)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +48,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(558, 429);
             this.Controls.Add(this.pictureBoxDSG);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "tclsDSG";
             this.Text = "tclsDSG";
             this.Resize += new System.EventHandler(this.tclsDSG_Resize);
