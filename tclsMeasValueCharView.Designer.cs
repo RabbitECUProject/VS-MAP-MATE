@@ -32,6 +32,7 @@ namespace UDP
             this.toolStripValueCharView = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLeft = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRight = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonHelp = new System.Windows.Forms.ToolStripButton();
             this.toolStripValueCharView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,17 +40,19 @@ namespace UDP
             // 
             this.toolStripValueCharView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonLeft,
-            this.toolStripButtonRight});
+            this.toolStripButtonRight,
+            this.toolStripButtonHelp});
             this.toolStripValueCharView.Location = new System.Drawing.Point(0, 0);
             this.toolStripValueCharView.Name = "toolStripValueCharView";
             this.toolStripValueCharView.Size = new System.Drawing.Size(686, 25);
             this.toolStripValueCharView.TabIndex = 0;
             this.toolStripValueCharView.Text = "toolStrip1";
+            this.toolStripValueCharView.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripValueCharView_ItemClicked);
             // 
             // toolStripButtonLeft
             // 
             this.toolStripButtonLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonLeft.Image = global::UDP.Properties.Resources.GlyphLeft;
+            this.toolStripButtonLeft.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLeft.Image")));
             this.toolStripButtonLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLeft.Name = "toolStripButtonLeft";
             this.toolStripButtonLeft.Size = new System.Drawing.Size(23, 22);
@@ -60,13 +63,24 @@ namespace UDP
             // toolStripButtonRight
             // 
             this.toolStripButtonRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRight.Image = global::UDP.Properties.Resources.GlyphRight;
+            this.toolStripButtonRight.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRight.Image")));
             this.toolStripButtonRight.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRight.Name = "toolStripButtonRight";
             this.toolStripButtonRight.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonRight.Text = "toolStripButtonRight";
             this.toolStripButtonRight.ToolTipText = "Next";
             this.toolStripButtonRight.Click += new System.EventHandler(this.toolStripButtonRight_Click);
+            // 
+            // toolStripButtonHelp
+            // 
+            this.toolStripButtonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonHelp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonHelp.Image")));
+            this.toolStripButtonHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonHelp.Name = "toolStripButtonHelp";
+            this.toolStripButtonHelp.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonHelp.Text = "toolStripButtonHelp";
+            this.toolStripButtonHelp.ToolTipText = "Help";
+            this.toolStripButtonHelp.Click += new System.EventHandler(this.toolStripButtonHelp_Click);
             // 
             // tclsMeasValueCharView
             // 
@@ -90,5 +104,6 @@ namespace UDP
         private System.Windows.Forms.ToolStrip toolStripValueCharView;
         private System.Windows.Forms.ToolStripButton toolStripButtonLeft;
         private System.Windows.Forms.ToolStripButton toolStripButtonRight;
+        private System.Windows.Forms.ToolStripButton toolStripButtonHelp;
     }
 }

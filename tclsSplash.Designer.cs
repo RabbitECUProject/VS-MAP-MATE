@@ -36,7 +36,7 @@
             // 
             this.labelSplash.BackColor = System.Drawing.Color.Transparent;
             this.labelSplash.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSplash.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.labelSplash.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(42)))), ((int)(((byte)(128)))));
             this.labelSplash.Location = new System.Drawing.Point(12, 489);
             this.labelSplash.Name = "labelSplash";
             this.labelSplash.Size = new System.Drawing.Size(948, 35);
@@ -48,7 +48,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(972, 533);
             this.Controls.Add(this.labelSplash);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

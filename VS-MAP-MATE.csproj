@@ -156,6 +156,12 @@
       <DependentUpon>tclsDSG.cs</DependentUpon>
     </Compile>
     <Compile Include="tclsErrLog.cs" />
+    <Compile Include="tclsHelpList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsHelpList.Designer.cs">
+      <DependentUpon>tclsHelpList.cs</DependentUpon>
+    </Compile>
     <Compile Include="tclsHTMLHelp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tclsDSG.resx">
       <DependentUpon>tclsDSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsHelpList.resx">
+      <DependentUpon>tclsHelpList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsHTMLHelp.resx">
       <DependentUpon>tclsHTMLHelp.cs</DependentUpon>
@@ -409,9 +418,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\907.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="AcroPDFLib">
       <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -449,9 +455,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\BLOB_36.bmp" />
+    <Content Include="Resources\chip.ico" />
     <Content Include="Resources\CURVE_36.bmp" />
     <Content Include="Resources\DSG_36.bmp" />
     <Content Include="Resources\GAUGE_36.bmp" />
+    <None Include="Resources\HELP.bmp" />
+    <Content Include="Resources\HELP_36.bmp" />
     <Content Include="Resources\LOGGING_36.bmp" />
     <Content Include="Resources\LOGIC_36.bmp" />
     <Content Include="Resources\MAP_36.bmp" />

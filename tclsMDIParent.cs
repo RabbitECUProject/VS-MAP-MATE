@@ -1165,7 +1165,7 @@ namespace UDP
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            tclsPDFView clsHelpPDF = new UDP.tclsPDFView(AppDomain.CurrentDomain.BaseDirectory + "Help Files\\MAP-MATE User Guide.pdf");
+            tclsPDFView clsHelpPDF = new UDP.tclsPDFView(AppDomain.CurrentDomain.BaseDirectory + "Manuals\\MAP-MATE User Guide.pdf");
 
             try
             {

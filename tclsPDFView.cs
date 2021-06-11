@@ -79,7 +79,7 @@ namespace UDP
 
             if (false == PDFOK)
             {
-                MessageBox.Show("Integrated PDF view could not be started, you should open help file manually from " + AppDomain.CurrentDomain.BaseDirectory + "Help Files");
+                MessageBox.Show("Integrated PDF view could not be started, you should open help file manually from " + AppDomain.CurrentDomain.BaseDirectory + "Manuals");
             }
         }
 

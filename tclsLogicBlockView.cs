@@ -910,7 +910,7 @@ namespace UDP
 
         private void iOHelpPDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tclsPDFView clsHelpPDF = new UDP.tclsPDFView(AppDomain.CurrentDomain.BaseDirectory + "Help Files\\Rabbit ECU Due IO.pdf");
+            tclsPDFView clsHelpPDF = new UDP.tclsPDFView(AppDomain.CurrentDomain.BaseDirectory + "Manuals\\Rabbit ECU Due IO.pdf");
 
             try
             {

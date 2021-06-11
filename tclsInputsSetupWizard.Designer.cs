@@ -52,6 +52,7 @@
             this.labelATS = new System.Windows.Forms.Label();
             this.labelCTS = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonSetDefault = new System.Windows.Forms.Button();
             this.groupBoxCrank.SuspendLayout();
             this.groupBoxCam.SuspendLayout();
             this.groupBoxAnalog.SuspendLayout();
@@ -117,6 +118,7 @@
             // 
             // groupBoxAnalog
             // 
+            this.groupBoxAnalog.Controls.Add(this.buttonSetDefault);
             this.groupBoxAnalog.Controls.Add(this.checkBoxPPSCAN);
             this.groupBoxAnalog.Controls.Add(this.checkBoxMAPCAN);
             this.groupBoxAnalog.Controls.Add(this.checkBoxTPSCAN);
@@ -134,7 +136,7 @@
             this.groupBoxAnalog.Controls.Add(this.labelCTS);
             this.groupBoxAnalog.Location = new System.Drawing.Point(12, 144);
             this.groupBoxAnalog.Name = "groupBoxAnalog";
-            this.groupBoxAnalog.Size = new System.Drawing.Size(619, 178);
+            this.groupBoxAnalog.Size = new System.Drawing.Size(619, 209);
             this.groupBoxAnalog.TabIndex = 2;
             this.groupBoxAnalog.TabStop = false;
             this.groupBoxAnalog.Text = "Analog Inputs";
@@ -281,7 +283,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(529, 342);
+            this.buttonOK.Location = new System.Drawing.Point(531, 359);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(88, 23);
             this.buttonOK.TabIndex = 7;
@@ -289,11 +291,21 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // buttonSetDefault
+            // 
+            this.buttonSetDefault.Location = new System.Drawing.Point(519, 175);
+            this.buttonSetDefault.Name = "buttonSetDefault";
+            this.buttonSetDefault.Size = new System.Drawing.Size(88, 23);
+            this.buttonSetDefault.TabIndex = 15;
+            this.buttonSetDefault.Text = "Set Defaults";
+            this.buttonSetDefault.UseVisualStyleBackColor = true;
+            this.buttonSetDefault.Click += new System.EventHandler(this.buttonSetDefault_Click);
+            // 
             // tclsInputsSetupWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 377);
+            this.ClientSize = new System.Drawing.Size(642, 399);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.groupBoxAnalog);
             this.Controls.Add(this.groupBoxCam);
@@ -337,5 +349,6 @@
         private System.Windows.Forms.CheckBox checkBoxTPSCAN;
         private System.Windows.Forms.CheckBox checkBoxATSCAN;
         private System.Windows.Forms.CheckBox checkBoxCTSCAN;
+        private System.Windows.Forms.Button buttonSetDefault;
     }
 }

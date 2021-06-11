@@ -137,6 +137,9 @@ namespace UDP
             UInt16 iConfigSize = (UInt16)(tclsASAM.u32GetCharMaxAddress() - (int)tclsASAM.u32GetCharMinAddress());
             UInt16 iByteOffset = 0;
 
+            /* Subtract bytes used for CRC and correct by 1 */
+            iConfigSize -= 1;
+
             while (iConfigSize-- > 0)
             {
                 UInt16 CRC16ShiftL = (UInt16)((CRC16 & 0x00ff) << 8);

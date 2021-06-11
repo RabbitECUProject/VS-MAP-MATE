@@ -93,6 +93,16 @@ namespace UDP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HELP_36 {
+            get {
+                object obj = ResourceManager.GetObject("HELP_36", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NEUTRAL {
             get {
                 object obj = ResourceManager.GetObject("NEUTRAL", resourceCulture);

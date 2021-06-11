@@ -1136,5 +1136,16 @@ namespace UDP
                 this.WindowState = FormWindowState.Minimized;
             }
         }
+
+        private void toolStripValueCharView_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void toolStripButtonHelp_Click(object sender, EventArgs e)
+        {
+            tclsHelpList clsHelpList = new tclsHelpList(maiCharIndices);
+            clsHelpList.Show();
+        }
     }
 }
