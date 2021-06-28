@@ -468,7 +468,7 @@ namespace UDP
                         acPoints[iPointIDX].x = (Single)au16DataRepeat[iPointIDX / 2] / 100f + 10;
                         acPoints[iPointIDX + 1].x = (Single)au16DataRepeat[iPointIDX / 2] / 100f + 10;
 
-                        if (0 == edgePolarity)
+                        if (1 == edgePolarity)
                         {
                             acPoints[iPointIDX].y = 0.9f + offset;
                             acPoints[iPointIDX + 1].y = 0.1f + offset;
@@ -482,7 +482,7 @@ namespace UDP
 
                     acPoints[acPoints.Length - 1].x = 665;
 
-                    if (0 == edgePolarity)
+                    if (1 == edgePolarity)
                     {
                         acPoints[acPoints.Length - 1].y = 0.9f + offset;
                     }
