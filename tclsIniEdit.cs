@@ -511,42 +511,42 @@ namespace UDP
 
             if (null != maclsLabelSection)
             {
-                foreach (Label sectionLabel in maclsLabelSection)
+            foreach (Label sectionLabel in maclsLabelSection)
+            {
+                if (null != sectionLabel)
                 {
-                    if (null != sectionLabel)
-                    {
-                        sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
-                        sectionLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
+                    sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
+                    sectionLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
                 }
 
-                iYOffset = 10;
+                iYOffset += 25;
+            }
 
-                foreach (Label settingLabel in maclsLabelSetting)
+            iYOffset = 10;
+
+            foreach (Label settingLabel in maclsLabelSetting)
+            {
+                if (null != settingLabel)
                 {
-                    if (null != settingLabel)
-                    {
-                        settingLabel.Location = new System.Drawing.Point((int)(0.20 * this.ClientRectangle.Width), iYOffset);
-                        settingLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
+                    settingLabel.Location = new System.Drawing.Point((int)(0.20 * this.ClientRectangle.Width), iYOffset);
+                    settingLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
                 }
 
-                iYOffset = 10;
+                iYOffset += 25;
+            }
 
-                foreach (ComboBox comboBox in maclsSettingComboBox)
+            iYOffset = 10;
+
+            foreach (ComboBox comboBox in maclsSettingComboBox)
+            {
+                if (null != comboBox)
                 {
-                    if (null != comboBox)
-                    {
-                        comboBox.Location = new System.Drawing.Point((int)(0.40 * this.ClientRectangle.Width), iYOffset);
-                        comboBox.Size = new System.Drawing.Size((int)(0.55 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
+                    comboBox.Location = new System.Drawing.Point((int)(0.40 * this.ClientRectangle.Width), iYOffset);
+                    comboBox.Size = new System.Drawing.Size((int)(0.55 * this.ClientRectangle.Width), 15);
                 }
+
+                iYOffset += 25;
+            }
             }
 
             this.SaveButton.Top = this.ClientRectangle.Height - 45;

@@ -692,6 +692,7 @@ namespace UDP
 
                 if (0 < tclsASAM.milstCompuMethodList[iCompuMethodIDX].iPreDPCount)
                 {
+
                     szFormatString +=
                        new String('0',
                        tclsASAM.milstCompuMethodList[iCompuMethodIDX].iPreDPCount);
@@ -1467,12 +1468,12 @@ namespace UDP
                     szShowString = tclsASAM.milstCharacteristicList[maiCharIndices[0]].szInfoString;
                 }
 
-                tclsNotify clsNotify = new UDP.tclsNotify();
+            tclsNotify clsNotify = new UDP.tclsNotify();
 
-                clsNotify.Left = this.ClientRectangle.Width / 2;
-                clsNotify.Top = this.ClientRectangle.Height / 2;
+            clsNotify.Left = this.ClientRectangle.Width / 2;
+            clsNotify.Top = this.ClientRectangle.Height / 2;
                 clsNotify.vSetNotices("Map Help", szShowString);
-                clsNotify.ShowDialog();
+            clsNotify.ShowDialog();
             }
         }
 

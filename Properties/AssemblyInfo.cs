@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MDAC MAP-MATE")]
-[assembly: AssemblyCopyright("Copyright ©  MDAC 2021")]
+[assembly: AssemblyCopyright("Copyright ©  MDAC 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.27")]
-[assembly: AssemblyFileVersion("1.0.1.27")]
+[assembly: AssemblyVersion("1.0.1.28")]
+[assembly: AssemblyFileVersion("1.0.1.28")]

@@ -75,7 +75,7 @@ namespace UDP
             {
                 if (e.CloseReason == CloseReason.UserClosing)
                 {
-                e.Cancel = true;
+                    e.Cancel = true;
                     MessageBox.Show("View can't be minimised or closed", "Not possible to close navigation view");
                 }
                 else

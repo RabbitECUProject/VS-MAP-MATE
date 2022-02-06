@@ -59,7 +59,8 @@ namespace UDP
                 "First Edge Rising Secondary",
                 "Trigger Type",
                 "Sync Type",
-                "Sync Phase Repeats"};
+                "Sync Phase Repeats",
+                "Ignition Tooth Timing Enable"};
 
             maclsCharacteristicLabel = new Label[aszSettingStrings.Length];
             maclsCharacteristicUnitsLabel = new Label[aszSettingStrings.Length];
@@ -784,8 +785,8 @@ namespace UDP
                 {
                     if (false == mboEnumMode[iCharIDX])
                     {
-                        maclsCharacteristicTextBox[iCharIDX].Text = szGetScaledData(maiCharCompuMethodIndices[iCharIDX], iCharIDX, sCharData, tenMCVElementType.enMCVChar);
-                    }
+                    maclsCharacteristicTextBox[iCharIDX].Text = szGetScaledData(maiCharCompuMethodIndices[iCharIDX], iCharIDX, sCharData, tenMCVElementType.enMCVChar);
+                }
                     else
                     {
                         int iVerbData = (Int32)sCharData;
@@ -1052,7 +1053,7 @@ namespace UDP
 
                     if (false == mboEnumMode[iCharacteristicIDX])
                     {
-                        maclsCharacteristicTextBox[iCharacteristicIDX].Left = this.Width - 230;
+                    maclsCharacteristicTextBox[iCharacteristicIDX].Left = this.Width - 230;
 
                         if (9 > iCharacteristicIDX)
                         {

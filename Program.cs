@@ -254,16 +254,16 @@ namespace UDP
 
                 if (true == boFileOpen)
                 {
-                System.Threading.Thread.Sleep(200);
-                vNotifyProgramEvent(tenProgramEvent.enSlowTaskProgress, 20, "Converting file data...");
-                tclsDataPage.vSetChangeLock(true);
-                vBufferCalibrationToDataPage();
-                tclsDataPage.vSetChangeLock(false);
-                vNotifyProgramEvent(tenProgramEvent.enSlowTaskProgress, 100, "Load calibration file complete");
-                vNotifyProgramEvent(tenProgramEvent.enLoadCalibrationComplete, 100, "Load calibration file complete");
-                Program.vNotifyProgramState(tenProgramState.enProgNormal, 100);
-                mFileOpenOK = true;
-            }
+                    System.Threading.Thread.Sleep(200);
+                    vNotifyProgramEvent(tenProgramEvent.enSlowTaskProgress, 20, "Converting file data...");
+                    tclsDataPage.vSetChangeLock(true);
+                    vBufferCalibrationToDataPage();
+                    tclsDataPage.vSetChangeLock(false);
+                    vNotifyProgramEvent(tenProgramEvent.enSlowTaskProgress, 100, "Load calibration file complete");
+                    vNotifyProgramEvent(tenProgramEvent.enLoadCalibrationComplete, 100, "Load calibration file complete");
+                    Program.vNotifyProgramState(tenProgramState.enProgNormal, 100);
+                    mFileOpenOK = true;
+                }
                 else
                 {
                     vNotifyProgramEvent(tenProgramEvent.enProgramError, 100, "Error opening calibration file");

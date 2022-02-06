@@ -383,15 +383,15 @@ namespace UDP
                         {
                             if (iLogicBlockViews < iLogicBlockViewCountMax)
                             {
-                                tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
-                                clsLogicBlockView.MdiParent = this;
-                                clsLogicBlockView.Show();
-                                mlstChildViews.Add(clsLogicBlockView);
-                                mlstLogicBlockView.Add(clsLogicBlockView);
-                                iLogicBlockViews++;
-                                iLogicBlockViewLastChildIndex = mlstChildViews.Count;
-                                mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex, tenWindowChildType.enLogicBlockView);
-                                iFormIDX++;
+                            tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
+                            clsLogicBlockView.MdiParent = this;
+                            clsLogicBlockView.Show();
+                            mlstChildViews.Add(clsLogicBlockView);
+                            mlstLogicBlockView.Add(clsLogicBlockView);
+                            iLogicBlockViews++;
+                            iLogicBlockViewLastChildIndex = mlstChildViews.Count;
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex, tenWindowChildType.enLogicBlockView);
+                            iFormIDX++;
                             }
                             break;
                             /* TODO multiple views */
@@ -895,10 +895,10 @@ namespace UDP
         {
             if (null != mclsNotify)
             {
-                mclsNotify.Left = 0;
-                mclsNotify.Top = this.ClientRectangle.Height - 150;
-                mclsNotify.Width = this.ClientRectangle.Width;
-                mclsNotify.Show();
+            mclsNotify.Left = 0;
+            mclsNotify.Top = this.ClientRectangle.Height - 150;
+            mclsNotify.Width = this.ClientRectangle.Width;
+            mclsNotify.Show();
             }
         }
 
