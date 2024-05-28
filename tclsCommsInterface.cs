@@ -108,7 +108,7 @@ namespace UDP
             try
             {
                 szBaud = mclsIniParser.GetSetting("Devices", "ComsBaud");
-                iBaud = Convert.ToInt16(szBaud);
+                iBaud = Convert.ToInt32(szBaud);
             }
             catch
             {
@@ -244,7 +244,7 @@ namespace UDP
                         }
                     }
 
-                    if ((null != szBaud) && (null != szCommPort))
+                    if ((null != szBaud) && (null != szCommPort)) //matthew here
                     {
                         try
                         {
@@ -301,7 +301,6 @@ namespace UDP
                 }
             }
         }
-
 
         public void vRXCallBackUDSOverUSB(object sender, MDACUSBInterface.CaptureEventArgs e)
         {

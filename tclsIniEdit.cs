@@ -278,6 +278,75 @@ namespace UDP
 
             switch (szSettingName)
             {
+                case "TextFontSize":
+                    {
+                        string[] aszTextFontSize = { "8", "10", "12", "14", "16", "18", "20" };
+
+                        lstSettingOptions.AddRange(aszTextFontSize);
+                        break;
+                    }
+                case "SegmentViewCountMax":
+                    {
+                        string[] aszSegViewCountMax = { "2", "3", "4", "5", "6" };
+                        lstSettingOptions.AddRange(aszSegViewCountMax);
+                        break;
+                    }
+                case "TextFontBold":
+                    { 
+                        string[] aszTextFontBold = { "0", "1" };
+
+                        lstSettingOptions.AddRange(aszTextFontBold);
+                        break;
+                    }
+                case "LabelFont":
+                    {
+                        string[] aszLabelFont = { "Arial", "System" };
+
+                        lstSettingOptions.AddRange(aszLabelFont);
+                        break;
+                    }
+                case "LabelFontBold":
+                    {
+                        string[] aszLabelFontBold = { "0", "1" };
+
+                        lstSettingOptions.AddRange(aszLabelFontBold);
+                        break;
+                    }
+                case "LabelFontSize":
+                    {
+                        string[] aszLabelFontSize = { "8", "10", "12", "14", "16", "18", "20" };
+
+                        lstSettingOptions.AddRange(aszLabelFontSize);
+                        break;
+                    }
+                case "TextFont":
+                    {
+                        string[] aszTextFont = { "Arial", "System" };
+
+                        lstSettingOptions.AddRange(aszTextFont);
+                        break;
+                    }
+                case "NetworkAdapterMAC":
+                    {
+                        string[] aszMAC = { "0-0-0-0-0-0" };
+
+                        lstSettingOptions.AddRange(aszMAC);
+                        break;
+                    }
+                case "LocalIPAddress":
+                    {
+                        string[] aszLIPAddress = { "0.0.0.0" };
+
+                        lstSettingOptions.AddRange(aszLIPAddress);
+                        break;
+                    }
+                case "RemoteIPAddress":
+                    {
+                        string[] aszIPAddress = { "0.0.0.0" };
+
+                        lstSettingOptions.AddRange(aszIPAddress);
+                        break;
+                    }
                 case "RP1210Lib":
                     {
                         string[] aszDLL = { "kv121032.dll" };

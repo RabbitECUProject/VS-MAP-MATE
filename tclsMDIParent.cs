@@ -29,6 +29,7 @@ namespace UDP
         enMDIEndInitialise,
         enMDIRequestViewFocus,
         enMDIShowError,
+        enMDIRecordError,
         enMDIShowMessage,
         enMDIToolStripOnline,
         enMDIToolStripOffline,
@@ -579,7 +580,7 @@ namespace UDP
 
         private void StripMenuItemUploadCal_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeUploading);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeUploading, 0);
 
             if (true == boResult)
             {
@@ -589,7 +590,7 @@ namespace UDP
 
         private void StripMenuItemDownloadCal_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeDownloading);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeDownloading, 0);
         }
 
         public void vNotify(tenMDIParentNotify enMDIParentNotify, int iData, string szErrorMessage, string szProgressMessage)
@@ -778,6 +779,11 @@ namespace UDP
                         MessageBox.Show(szErrorMessage, "System Error!");
                         break;
                     }
+                case tenMDIParentNotify.enMDIRecordError:
+                    {
+                        mclsNotify.vAppendNotices("Error", szErrorMessage);
+                        break;
+                    }
                 case tenMDIParentNotify.enMDIShowMessage:
                     {
                         mclsNotify.vAppendNotices("Message", szErrorMessage);
@@ -852,12 +858,12 @@ namespace UDP
 
         private void StripMenuItemFreezeCalToNVMTool_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeWorkingNVMFreeze);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeWorkingNVMFreeze, 0);
         }
 
         private void clearNVMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeNVMClear);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeNVMClear, 0);
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -1180,6 +1186,16 @@ namespace UDP
             {
                 MessageBox.Show("Starting PDF alternate viewer");
             }
+        }
+
+        private void installUpdaterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeInstallCodePage1, 4);
+        }
+
+        private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeFirmwareUpdate, 0);
         }
     }
 }

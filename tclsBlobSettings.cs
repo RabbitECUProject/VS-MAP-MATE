@@ -1092,7 +1092,7 @@ namespace UDP
 
         private void buttonPrimary_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(360);
 
             SetInputArray(au16Elements, "Primary Trigger Table");
         }
@@ -1120,13 +1120,14 @@ namespace UDP
             }
         }
 
-        private UInt16[] ProcessTextInput()
+        private UInt16[] ProcessTextInput(int degreeSpread)
         {
             string szInput = textBoxPatternInput.Text;
             UInt16[] aiElements = null;
             UInt16[] aiElementsScaled = null;
             int iElementIDX = 0;
             string[] aszInput;
+            bool abort = false;
 
             szInput = szInput.Replace(" ", string.Empty);
 
@@ -1153,9 +1154,20 @@ namespace UDP
 
                 foreach (int element in aiElements)
                 {
-                    float val = (element * 65536) / 360;
-                    aiElementsScaled[iElementIDX] =  (UInt16)val;
-                    iElementIDX++;
+                    if (false == abort)
+                    {
+                        if (degreeSpread > element)
+                        {
+                            float val = (element * 65536) / degreeSpread;
+                            aiElementsScaled[iElementIDX] =  (UInt16)val;
+                            iElementIDX++;
+                        }
+                        else
+                        {
+                            abort = true;
+                            MessageBox.Show("An error occurred - the input angle is too large");
+                        }
+                    }
                 }
 
                 aiElements = aiElementsScaled;
@@ -1166,14 +1178,14 @@ namespace UDP
 
         private void buttonSecondary_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(720);
 
             SetInputArray(au16Elements, "Secondary Trigger Table");
         }
 
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(360);
 
             SetInputArray(au16Elements, "Sync Points Table");
         }
@@ -1297,7 +1309,6 @@ namespace UDP
                     {
                         szTriggerCustomIndex = null;
                     }
-
 
 
                     if ((szTriggerPrimary != null) &&

@@ -379,11 +379,11 @@ namespace UDP
                 {
                     if (0 == (iRowIDX % 2))
                     {
-                        //UpdateGridColourPreference(iColIDX, iRowIDX, 0.4f + 0.1f * (float)(iColIDX % 2));
+                        UpdateGridColourPreference(iColIDX, iRowIDX, 0.4f + 0.1f * (float)(iColIDX % 2));
                     }
                     else
                     {
-                        //UpdateGridColourPreference(iColIDX, iRowIDX, 0.5f - 0.1f * (float)(iColIDX % 2));
+                        UpdateGridColourPreference(iColIDX, iRowIDX, 0.5f - 0.1f * (float)(iColIDX % 2));
                     }
                 }
             }
@@ -608,6 +608,9 @@ namespace UDP
         {
             for (int iCharIDX = 0; iCharIDX < miCharCount; iCharIDX++)
             {
+                int iZPointsCount = miXAxisPointCount[iCharIDX] > miYAxisPointCount[iCharIDX] ?
+                    miXAxisPointCount[iCharIDX] : miYAxisPointCount[iCharIDX];
+
                 mlstXAxisLabels[iCharIDX].Clear();
                 mlstYAxisLabels[iCharIDX].Clear();
 
@@ -623,11 +626,11 @@ namespace UDP
                     mlstYAxisLabels[iCharIDX].Add(szYColHeader);
                 }
 
-                vCreateZAxisPoints(iCharIDX);
+                vCreateZAxisPoints(iCharIDX, iZPointsCount);
             }
         }
 
-        private void vCreateZAxisPoints(int iCharIDX)
+        private void vCreateZAxisPoints(int iCharIDX, int iPointsCount)
         {
             mlstZAxisLabels[iCharIDX].Clear();
 
@@ -657,9 +660,9 @@ namespace UDP
             }
 
             Double range = tclsASAM.milstCharacteristicList[maiCharIndices[0]].sUpperLim - tclsASAM.milstCharacteristicList[maiCharIndices[0]].sLowerLim;
-            Double step = range / 10;
+            Double step = range / (iPointsCount - 1);
 
-            for (int iZStepIDX = 0; iZStepIDX < 11; iZStepIDX++)
+            for (int iZStepIDX = 0; iZStepIDX < iPointsCount; iZStepIDX++)
             {
                 string szAxisPoint = String.Format(szFormatString, tclsASAM.milstCharacteristicList[maiCharIndices[0]].sLowerLim + iZStepIDX * step);
                 szAxisPoint += " ";

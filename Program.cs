@@ -76,6 +76,7 @@ namespace UDP
         public static System.Drawing.Color mProgramTextBackcolor;
         public static System.Drawing.Color mProgramTextToggleBackcolor;
         public static string mszAdapterDeviceName;
+        public static bool mboFirmwareDownloadPending;
 
         static Program()
         {
@@ -83,6 +84,9 @@ namespace UDP
 
             tclsDataPage.vSetWorkingBaseAddress(tclsASAM.u32GetCharMinAddress());
             tclsErrlog.LogAppend("ASAM parsed...");
+
+            tclsCodePage.SetCodePageCRC16();
+            tclsLargeCodePage.SetCodePageCRC16();
 
             mProgramTextForecolor = System.Drawing.Color.Aquamarine;
             mProgramTextBackcolor = System.Drawing.Color.Black;
@@ -112,7 +116,7 @@ namespace UDP
             mFormUDP = new tclsMDIParent();
             tclsErrlog.LogAppend("MDI created...");
 
-            mAPP_clsUDPComms = new tclsUDSComms(mszAdapterDeviceName, mFormUDP.Handle);
+            mAPP_clsUDPComms = new tclsUDSComms(mszAdapterDeviceName, mFormUDP.Handle, false);
             mboCommsOnline = mAPP_clsUDPComms.Connected;
             tclsErrlog.LogAppend("CommsOnline: " + mboCommsOnline.ToString());
 
@@ -122,6 +126,7 @@ namespace UDP
             }
 
             mboCommsSuspend = true;
+            mboFirmwareDownloadPending = false;
 
             UInt16 u16ASAMCRC = tclsASAM.u16GetCRC16();
 
@@ -373,6 +378,8 @@ namespace UDP
             int iProgressCount = 0;
             Single fProgress;
             String szUpdateString = "Converting characteristics...";
+            bool boUpdateCalibrationFile = false;
+            bool boUpdatePrompted = false;
 
             foreach (tstCharacteristic stCharacteristic in tclsASAM.milstCharacteristicList)
             {
@@ -595,8 +602,50 @@ namespace UDP
                 {
                     if (0 != stCharacteristic.szCharacteristicName.IndexOf('_'))
                     {
-                        String szErrMsg = "No calibration data was found for " + stCharacteristic.szCharacteristicName + "!";
-                        Program.vNotifyProgramEvent(tenProgramEvent.enProgramError, 0, szErrMsg);
+                        String szErrMsg;
+                        int data_size;
+                        byte[] au8Data;
+
+                        if (false == boUpdatePrompted) 
+                        {
+                            DialogResult result = MessageBox.Show("Data described in the A2L file is missing in the Calibration file. Migrate the Calibration file to the latest version?", "System Error!", MessageBoxButtons.YesNo);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                data_size = iGetCharacteristicSize(stCharacteristic);
+                                au8Data = new byte[data_size];
+                                tclsDataPage.vSetWorkingData(stCharacteristic.u32Address, au8Data, true, false);
+
+                                szErrMsg = "Calibration data for " + stCharacteristic.szCharacteristicName + " set to 0";
+                                boUpdateCalibrationFile = true;
+                            }
+                            else
+                            {
+                                szErrMsg = "No calibration data was found for " + stCharacteristic.szCharacteristicName + "!";
+                            }
+
+                            Program.vNotifyProgramEvent(tenProgramEvent.enProgramErrorSuppressMessageBox, 0, szErrMsg);
+
+                            boUpdatePrompted = true;
+                        }
+                        else
+                        {
+                            if (true == boUpdateCalibrationFile)
+                            {
+                                data_size = iGetCharacteristicSize(stCharacteristic);
+                                au8Data = new byte[data_size];
+                                tclsDataPage.vSetWorkingData(stCharacteristic.u32Address, au8Data, true, false);
+
+                                szErrMsg = "Calibration data for " + stCharacteristic.szCharacteristicName + " set to 0";
+                                boUpdateCalibrationFile = true;
+                            }
+                            else
+                            {
+                                szErrMsg = "No calibration data was found for " + stCharacteristic.szCharacteristicName + "!";
+                            }
+
+                            Program.vNotifyProgramEvent(tenProgramEvent.enProgramErrorSuppressMessageBox, 0, szErrMsg);
+                        }
                     }
                 }
             }
@@ -677,8 +726,40 @@ namespace UDP
                 }
                 else
                 {
-                    String szErrMsg = "No axis data was found for " + stAxisPts.szAxisPtsName + "!";
-                    Program.vNotifyProgramEvent(tenProgramEvent.enProgramError, 0, szErrMsg);
+                    String szErrMsg;
+
+                    if (false == boUpdatePrompted)
+                    {
+                        DialogResult result = MessageBox.Show("Axis Data described in the A2L file is missing in the Calibration file. Migrate the Calibration file to the latest version?", "System Error!", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            szErrMsg = "Axis data for " + stAxisPts.szAxisPtsName + " set to 0";
+                            boUpdateCalibrationFile = true;
+                        }
+                        else
+                        {
+                            szErrMsg = "No axis data was found for " + stAxisPts.szAxisPtsName + "!";
+                        }
+
+                        Program.vNotifyProgramEvent(tenProgramEvent.enProgramErrorSuppressMessageBox, 0, szErrMsg);
+
+                        boUpdatePrompted = true;
+                    }
+                    else
+                    {
+                        if (true == boUpdateCalibrationFile)
+                        {
+                            szErrMsg = "Axis data for " + stAxisPts.szAxisPtsName + " set to 0";
+                            boUpdateCalibrationFile = true;
+                        }
+                        else
+                        {
+                            szErrMsg = "No axis data was found for " + stAxisPts.szAxisPtsName + "!";
+                        }
+
+                        Program.vNotifyProgramEvent(tenProgramEvent.enProgramErrorSuppressMessageBox, 0, szErrMsg);
+                    }
 
                 }
             }
@@ -820,6 +901,11 @@ namespace UDP
             {
                 switch (enRPCResponse)
                 {
+                    case tenProgramEvent.enUSBFirmwareDisconnect:
+                        {
+                            mboFirmwareDownloadPending = true;
+                            break;
+                        }
                     case tenProgramEvent.enRPCUploadComplete:
                         {
                             tclsDataPage.vSetChangeLock(true);
@@ -856,6 +942,11 @@ namespace UDP
                     case tenProgramEvent.enProgramError:
                         {
                             mFormUDP.vNotify(tenMDIParentNotify.enMDIShowError, 0, szErrOrMessage, "");
+                            break;
+                        }
+                    case tenProgramEvent.enProgramErrorSuppressMessageBox:
+                        {
+                            mFormUDP.vNotify(tenMDIParentNotify.enMDIRecordError, 0, szErrOrMessage, "");
                             break;
                         }
                     case tenProgramEvent.enProgramMessage:
@@ -931,7 +1022,7 @@ namespace UDP
                         {
                             if (false == mboCommsOnline)
                             {
-                                mAPP_clsUDPComms = new tclsUDSComms(mszAdapterDeviceName, mFormUDP.Handle);
+                                mAPP_clsUDPComms = new tclsUDSComms(mszAdapterDeviceName, mFormUDP.Handle, mboFirmwareDownloadPending);
                                 mboCommsOnline = mAPP_clsUDPComms.Connected;
 
                                 if (false == mboCommsOnline)
@@ -973,6 +1064,72 @@ namespace UDP
                 }
 
             }
+        }
+
+        static int iGetCharacteristicSize(tstCharacteristic stCharacteristic)
+        {
+            int characteristic_size = 1;
+
+            switch (stCharacteristic.enParamType)
+            {
+                case tenParamType.enPT_VALUE:
+                    {
+                        switch (stCharacteristic.enRecLayout)
+                        {
+                            case tenRecLayout.enRL_VALS32:
+                                characteristic_size = 4; break;
+                            case tenRecLayout.enRL_VALS16:
+                                characteristic_size = 2; break;
+                            case tenRecLayout.enRL_VALS8:
+                                characteristic_size = 1; break;
+                            case tenRecLayout.enRL_VALU32:
+                                characteristic_size = 4; break;
+                            case tenRecLayout.enRL_VALU16:
+                                characteristic_size = 2; break;
+                            case tenRecLayout.enRL_VALU8:
+                                characteristic_size = 1; break;
+                            default:
+                                characteristic_size = 1; break;
+                        }
+                        break;
+                    }
+                case tenParamType.enPT_CURVE:
+                case tenParamType.enPT_MAP:
+                    {
+                        int iCols = stCharacteristic.iXAxisRef == -1 ? 1 : tclsASAM.milstAxisPtsList[stCharacteristic.iXAxisRef].iAxisPointCount;
+                        int iRows = stCharacteristic.iYAxisRef == -1 ? 1 : tclsASAM.milstAxisPtsList[stCharacteristic.iYAxisRef].iAxisPointCount;
+
+                        switch (stCharacteristic.enRecLayout)
+                        {
+                            case tenRecLayout.enRL_VALS32:
+                            case tenRecLayout.enRL_VALU32:
+                                {
+                                    characteristic_size = 4 * iCols * iRows;
+                                    break;
+                                }
+                            case tenRecLayout.enRL_VALS16:
+                            case tenRecLayout.enRL_VALU16:
+                                {
+                                    characteristic_size = 2 * iCols * iRows;
+                                    break;
+                                }
+                            case tenRecLayout.enRL_VALS8:
+                            case tenRecLayout.enRL_VALU8:
+                                {
+                                    characteristic_size =  iCols * iRows;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        characteristic_size = 1;
+                        break;
+                    }
+            }
+
+            return characteristic_size;
         }
 
         public static void vNotifyProgramState(tenProgramState enProgramState, int iData)

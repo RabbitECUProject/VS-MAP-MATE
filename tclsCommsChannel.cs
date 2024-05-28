@@ -20,6 +20,14 @@ namespace UDP
         enChannelModeWorkingNVMFreeze,
         enChannelModeNVMClear,
         enChannelModeReplayScript,
+        enChannelModeInstallCodePage1,
+        enChannelModeInstallCodePage2,
+        enChannelModeInstallCodePage3,
+        enChannelModeInstallCodePage4,
+        enChannelModeInstallCodePageComplete,
+        enChannelModeFirmwareUpdate,
+        enChannelModeInstallFirmwarePageArray,
+        enChannelModeInstallFirmwarePageArrayComplete,
         enChannelModeNone
     }
 
@@ -35,6 +43,7 @@ namespace UDP
         protected string mszConnectionException;
         protected tstTransferPageCB mstTransferPageCB;
         protected tstPollingCB mstPollingCB;
+        protected int miFirmwareUpdateCounts;
 
         public tclsCommsChannel()
         {

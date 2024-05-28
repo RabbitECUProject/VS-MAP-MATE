@@ -66,6 +66,8 @@ namespace UDP
             this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
+            this.installUpdaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MDIParentStrip.SuspendLayout();
             this.MDIStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -139,28 +141,28 @@ namespace UDP
             // StripMenuItemUploadCal
             // 
             this.StripMenuItemUploadCal.Name = "StripMenuItemUploadCal";
-            this.StripMenuItemUploadCal.Size = new System.Drawing.Size(171, 22);
+            this.StripMenuItemUploadCal.Size = new System.Drawing.Size(180, 22);
             this.StripMenuItemUploadCal.Text = "Upload Cal";
             this.StripMenuItemUploadCal.Click += new System.EventHandler(this.StripMenuItemUploadCal_Click);
             // 
             // StripMenuItemDownloadCal
             // 
             this.StripMenuItemDownloadCal.Name = "StripMenuItemDownloadCal";
-            this.StripMenuItemDownloadCal.Size = new System.Drawing.Size(171, 22);
+            this.StripMenuItemDownloadCal.Size = new System.Drawing.Size(180, 22);
             this.StripMenuItemDownloadCal.Text = "Download Cal";
             this.StripMenuItemDownloadCal.Click += new System.EventHandler(this.StripMenuItemDownloadCal_Click);
             // 
             // StripMenuItemfreezeCalToNVM
             // 
             this.StripMenuItemfreezeCalToNVM.Name = "StripMenuItemfreezeCalToNVM";
-            this.StripMenuItemfreezeCalToNVM.Size = new System.Drawing.Size(171, 22);
+            this.StripMenuItemfreezeCalToNVM.Size = new System.Drawing.Size(180, 22);
             this.StripMenuItemfreezeCalToNVM.Text = "Freeze Cal to NVM";
             this.StripMenuItemfreezeCalToNVM.Click += new System.EventHandler(this.StripMenuItemFreezeCalToNVMTool_Click);
             // 
             // clearNVMToolStripMenuItem
             // 
             this.clearNVMToolStripMenuItem.Name = "clearNVMToolStripMenuItem";
-            this.clearNVMToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.clearNVMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearNVMToolStripMenuItem.Text = "Clear NVM";
             this.clearNVMToolStripMenuItem.Click += new System.EventHandler(this.clearNVMToolStripMenuItem_Click);
             // 
@@ -184,14 +186,14 @@ namespace UDP
             // openCalImageToolStripMenuItem
             // 
             this.openCalImageToolStripMenuItem.Name = "openCalImageToolStripMenuItem";
-            this.openCalImageToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.openCalImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openCalImageToolStripMenuItem.Text = "Open Cal";
             this.openCalImageToolStripMenuItem.Click += new System.EventHandler(this.openCalImageToolStripMenuItem_Click);
             // 
             // saveCalToolStripMenuItem
             // 
             this.saveCalToolStripMenuItem.Name = "saveCalToolStripMenuItem";
-            this.saveCalToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.saveCalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveCalToolStripMenuItem.Text = "Save Cal";
             this.saveCalToolStripMenuItem.Click += new System.EventHandler(this.saveCalToolStripMenuItem_Click);
             // 
@@ -258,7 +260,9 @@ namespace UDP
             this.toolStripSplitButtonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripSplitButtonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.replayScriptToolStripMenuItem,
-            this.clearMessagesToolStripMenuItem});
+            this.clearMessagesToolStripMenuItem,
+            this.installUpdaterToolStripMenuItem,
+            this.updateFirmwareToolStripMenuItem});
             this.toolStripSplitButtonTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButtonTools.Name = "toolStripSplitButtonTools";
             this.toolStripSplitButtonTools.Size = new System.Drawing.Size(50, 22);
@@ -267,14 +271,14 @@ namespace UDP
             // replayScriptToolStripMenuItem
             // 
             this.replayScriptToolStripMenuItem.Name = "replayScriptToolStripMenuItem";
-            this.replayScriptToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.replayScriptToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.replayScriptToolStripMenuItem.Text = "Replay Script";
             this.replayScriptToolStripMenuItem.Click += new System.EventHandler(this.replayScriptToolStripMenuItem_Click);
             // 
             // clearMessagesToolStripMenuItem
             // 
             this.clearMessagesToolStripMenuItem.Name = "clearMessagesToolStripMenuItem";
-            this.clearMessagesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.clearMessagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMessagesToolStripMenuItem.Text = "Clear Messages";
             this.clearMessagesToolStripMenuItem.Click += new System.EventHandler(this.clearMessagesToolStripMenuItem_Click);
             // 
@@ -370,6 +374,20 @@ namespace UDP
             this.ConnectionImageList.Images.SetKeyName(0, "CONNECTED_ICON.bmp");
             this.ConnectionImageList.Images.SetKeyName(1, "DISCONNECTED_ICON.bmp");
             // 
+            // installUpdaterToolStripMenuItem
+            // 
+            this.installUpdaterToolStripMenuItem.Name = "installUpdaterToolStripMenuItem";
+            this.installUpdaterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.installUpdaterToolStripMenuItem.Text = "Install Updater";
+            this.installUpdaterToolStripMenuItem.Click += new System.EventHandler(this.installUpdaterToolStripMenuItem_Click);
+            // 
+            // updateFirmwareToolStripMenuItem
+            // 
+            this.updateFirmwareToolStripMenuItem.Name = "updateFirmwareToolStripMenuItem";
+            this.updateFirmwareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateFirmwareToolStripMenuItem.Text = "Update Firmware";
+            this.updateFirmwareToolStripMenuItem.Click += new System.EventHandler(this.updateFirmwareToolStripMenuItem_Click);
+            // 
             // tclsMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +451,8 @@ namespace UDP
         private System.Windows.Forms.ToolStripMenuItem clearMessagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem installUpdaterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateFirmwareToolStripMenuItem;
     }
 }
 
