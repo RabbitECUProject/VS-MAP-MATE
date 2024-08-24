@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UDP</RootNamespace>
     <AssemblyName>MDAC ECUHOST Calibration</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -72,6 +72,10 @@
     <Reference Include="LBIndustrialCtrls, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\LBIndustrialCtrls.dll</HintPath>
+    </Reference>
+    <Reference Include="MDACFirmwareUpdateInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\MDAC\ECUHOST\MDACFirmwareUpdateInterface.dll</HintPath>
     </Reference>
     <Reference Include="MDACUDPRP1210Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -157,6 +161,12 @@
       <DependentUpon>tclsDSG.cs</DependentUpon>
     </Compile>
     <Compile Include="tclsErrLog.cs" />
+    <Compile Include="tclsFirmwareJTAG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsFirmwareJTAG.Designer.cs">
+      <DependentUpon>tclsFirmwareJTAG.cs</DependentUpon>
+    </Compile>
     <Compile Include="tclsHelpList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tclsDSG.resx">
       <DependentUpon>tclsDSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsFirmwareJTAG.resx">
+      <DependentUpon>tclsFirmwareJTAG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsHelpList.resx">
       <DependentUpon>tclsHelpList.cs</DependentUpon>

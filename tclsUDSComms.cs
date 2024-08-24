@@ -292,7 +292,7 @@ namespace UDP
                             {
                                 if (0 == mstTransferPageCB.u32WaitResponseCount)
                                 {
-                                    mstTransferPageCB.iBlockSize = miTransferBlockSize / 8;
+                                    mstTransferPageCB.iBlockSize = miTransferBlockSize / 4;
                                     byte[] au8Data = new byte[mstTransferPageCB.iBlockSize];
 
                                     tclsDataPage.au8GetWorkingData(mstTransferPageCB.u32StartAddress, ref au8Data);
@@ -453,7 +453,7 @@ namespace UDP
                                     {
                                         if (0 == mstTransferPageCB.u32WaitResponseCount)
                                         {
-                                            mstTransferPageCB.iBlockSize = miTransferBlockSize / 8;
+                                            mstTransferPageCB.iBlockSize = miTransferBlockSize / 4;
                                             byte[] au8Data = new byte[mstTransferPageCB.iBlockSize];
 
                                             if (4 >= mstTransferPageCB.iPagesTotal)

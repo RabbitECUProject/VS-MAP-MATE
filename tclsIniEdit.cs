@@ -35,25 +35,66 @@ namespace UDP
         string[] maszSettings;
         ComboBox[] maclsSettingComboBox;
         int miSelectedInterfaceIDX = -1;
+        private System.Windows.Forms.TabControl SettingsTabControl;
+        private System.Windows.Forms.Panel[] SettingsPanels;
+        private System.Windows.Forms.TabPage[] SettingsTabPages;
 
         public tclsIniEdit()
         {
             InitializeComponent();
         }
 
+
         private void tclsIniEdit_Load(object sender, EventArgs e)
         {
             string[] aszSections = Program.mAPP_mclsIniParser.EnumAll();
             int iSettingCount = 0;
-            int iYOffset = 10;
+            int iYOffset;
             maclsLabelSection = new Label[Program.mAPP_mclsIniParser.GetSettingsCount()];
             maclsLabelSetting = new Label[Program.mAPP_mclsIniParser.GetSettingsCount()];
             maclsSettingComboBox = new ComboBox[Program.mAPP_mclsIniParser.GetSettingsCount()];
             maszSettings = new string[Program.mAPP_mclsIniParser.GetSettingsCount()];
+            int iPanelIDX = 0;
+
+            SettingsPanels = new Panel[aszSections.Length];
+            SettingsTabPages = new TabPage[aszSections.Length];
+            SettingsTabControl = new System.Windows.Forms.TabControl();
+            SettingsLayoutPanel.Controls.Add(SettingsTabControl, 0, 0);
+
+            SettingsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+
+            foreach (string szSection in aszSections)
+            {
+                SettingsPanels[iPanelIDX] = new Panel();
+                SettingsTabPages[iPanelIDX] = new TabPage();
+                SettingsTabControl.Controls.Add(SettingsTabPages[iPanelIDX]);
+                SettingsTabPages[iPanelIDX].Controls.Add(SettingsPanels[iPanelIDX]);
+                SettingsTabPages[iPanelIDX].AutoScrollMinSize = new System.Drawing.Size(700, 500);
+
+                SettingsTabPages[iPanelIDX].Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                | System.Windows.Forms.AnchorStyles.Left)
+                | System.Windows.Forms.AnchorStyles.Right)));
+                SettingsTabPages[iPanelIDX].AutoSize = true;
+                SettingsTabPages[iPanelIDX].AutoScroll = true;
+                SettingsTabPages[iPanelIDX].Text = szSection;
+
+                SettingsPanels[iPanelIDX].Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                | System.Windows.Forms.AnchorStyles.Left)
+                | System.Windows.Forms.AnchorStyles.Right)));
+                SettingsPanels[iPanelIDX].AutoSize = true;
+                SettingsPanels[iPanelIDX].Dock = DockStyle.Fill;
+
+                iPanelIDX++;
+            }
+
+            iPanelIDX = 0;
 
             foreach (string szSection in aszSections)
             {
                 string[] aszSettings = Program.mAPP_mclsIniParser.EnumSection(szSection);
+                iYOffset = 10;
 
                 foreach (string szSetting in aszSettings)
                 {
@@ -64,25 +105,25 @@ namespace UDP
                     ComboBox comboBox = new System.Windows.Forms.ComboBox();
 
                     sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
-                    sectionLabel.Size = new System.Drawing.Size(45, 15);
+                    sectionLabel.Size = new System.Drawing.Size(110, 15);
                     sectionLabel.TabIndex = 2;
                     sectionLabel.Text = szSection;
                     maclsLabelSection[iSettingCount] = sectionLabel;
 
-                    settingLabel.Location = new System.Drawing.Point(170, iYOffset);
-                    settingLabel.Size = new System.Drawing.Size(40, 15);
+                    settingLabel.Location = new System.Drawing.Point(125, iYOffset);
+                    settingLabel.Size = new System.Drawing.Size(135, 15);
                     settingLabel.TabIndex = 3;
                     settingLabel.Text = szSetting;
                     maclsLabelSetting[iSettingCount] = settingLabel;
                     maszSettings[iSettingCount] = szSetting;
 
                     comboBox.FormattingEnabled = true;
-                    comboBox.Location = new System.Drawing.Point(290, iYOffset - 5);
-                    comboBox.Size = new System.Drawing.Size(440, 20);
+                    comboBox.Location = new System.Drawing.Point(260, iYOffset - 5);
+                    comboBox.Size = new System.Drawing.Size(540, 20);
                     comboBox.TabIndex = 4;
                     maclsSettingComboBox[iSettingCount] = comboBox;
 
-                    aszSettingOptions = aszGetSettingOptions(szSetting);
+                    aszSettingOptions = aszGetSettingOptions(szSection, szSetting);
 
                     foreach(string szSettingOption in aszSettingOptions)
                     {
@@ -105,19 +146,17 @@ namespace UDP
                         comboBox.SelectedIndex == -1 ? 0 : comboBox.SelectedIndex;
 
                     comboBox.SelectedValueChanged += new System.EventHandler(ComboClickHandler);
-                    this.SettingsPanel.Controls.Add(sectionLabel);
-                    this.SettingsPanel.Controls.Add(settingLabel);
-                    this.SettingsPanel.Controls.Add(comboBox);
+                    this.SettingsPanels[iPanelIDX].Controls.Add(sectionLabel);
+                    this.SettingsPanels[iPanelIDX].Controls.Add(settingLabel);
+                    this.SettingsPanels[iPanelIDX].Controls.Add(comboBox);
                     iSettingCount++;
                     iYOffset += 25;
                 }
+
+                iPanelIDX++;
             }
 
             vValidateNetworkSettings();
-            this.Height = 100 + 25 * iSettingCount;
-            this.SettingsPanel.Height = 10 + 25 * iSettingCount;
-            this.SaveButton.Top = 30 + 25 * iSettingCount;
-            this.ExitButton.Top = 30 + 25 * iSettingCount;
         }
 
         private void vValidateNetworkSettings()
@@ -272,7 +311,7 @@ namespace UDP
 #endif
         }
 
-        private string[] aszGetSettingOptions(string szSettingName)
+        private string[] aszGetSettingOptions(string szSection, string szSettingName)
         {
             ArrayList lstSettingOptions = new ArrayList();
 
@@ -531,7 +570,9 @@ namespace UDP
                     }
                 default:
                     {
-                        lstSettingOptions.Add("Setting unavailable");
+                        // load the current value
+                        lstSettingOptions.Add(Program.mAPP_mclsIniParser.GetSetting(szSection, szSettingName));
+                        lstSettingOptions.Add("No others available");
                         break;
                     }
             }
@@ -575,53 +616,49 @@ namespace UDP
         {
             int iYOffset = 10;
 
-            SettingsPanel.Width = this.ClientRectangle.Width - 25;
-            SettingsPanel.Height = this.ClientRectangle.Height - 75;
+            /*
 
             if (null != maclsLabelSection)
             {
-            foreach (Label sectionLabel in maclsLabelSection)
-            {
-                if (null != sectionLabel)
+                foreach (Label sectionLabel in maclsLabelSection)
                 {
-                    sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
-                    sectionLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
+                    if (null != sectionLabel)
+                    {
+                        sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
+                        sectionLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
+                    }
+
+                    iYOffset += 25;
                 }
 
-                iYOffset += 25;
-            }
+                iYOffset = 10;
 
-            iYOffset = 10;
-
-            foreach (Label settingLabel in maclsLabelSetting)
-            {
-                if (null != settingLabel)
+                foreach (Label settingLabel in maclsLabelSetting)
                 {
-                    settingLabel.Location = new System.Drawing.Point((int)(0.20 * this.ClientRectangle.Width), iYOffset);
-                    settingLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
+                    if (null != settingLabel)
+                    {
+                        settingLabel.Location = new System.Drawing.Point((int)(0.20 * this.ClientRectangle.Width), iYOffset);
+                        settingLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
+                    }
+
+                    iYOffset += 25;
                 }
 
-                iYOffset += 25;
-            }
+                iYOffset = 10;
 
-            iYOffset = 10;
-
-            foreach (ComboBox comboBox in maclsSettingComboBox)
-            {
-                if (null != comboBox)
+                foreach (ComboBox comboBox in maclsSettingComboBox)
                 {
-                    comboBox.Location = new System.Drawing.Point((int)(0.40 * this.ClientRectangle.Width), iYOffset);
-                    comboBox.Size = new System.Drawing.Size((int)(0.55 * this.ClientRectangle.Width), 15);
+                    if (null != comboBox)
+                    {
+                        comboBox.Location = new System.Drawing.Point((int)(0.40 * this.ClientRectangle.Width), iYOffset);
+                        comboBox.Size = new System.Drawing.Size((int)(0.55 * this.ClientRectangle.Width), 15);
+                    }
+
+                    iYOffset += 25;
                 }
-
-                iYOffset += 25;
-            }
             }
 
-            this.SaveButton.Top = this.ClientRectangle.Height - 45;
-            this.ExitButton.Top = this.ClientRectangle.Height - 45;
-            this.SaveButton.Left = this.ClientRectangle.Width - 95;
-            this.ExitButton.Left = this.ClientRectangle.Width - 170;
+    */
         }
     }
 }

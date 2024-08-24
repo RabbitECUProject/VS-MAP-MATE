@@ -29,6 +29,13 @@ namespace UDP
             public const UInt16 u16ASCFileTimeStampPreDecimalChars = 6;
         }
 
+        public static class TOOLTYPE
+        {
+            public const UInt16 u16OpenOCD = 0;
+            public const UInt16 u16KeilUVision = 1;
+            public const UInt16 u16USBDM = 2;
+        }
+
         public static class GENERICDATA
         {
             public const UInt16 u16ENGINE_SPEED_RAW = 0;

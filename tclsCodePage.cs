@@ -20,7 +20,7 @@ namespace UDP
 
             try
             {
-                mszBLFileName = mclsIniParser.GetSetting("Databases", "ABL");
+                mszBLFileName = mclsIniParser.GetSetting("FirmwareUpdate", "ABL");
                 mszBLFileName = AppDomain.CurrentDomain.BaseDirectory + "Firmwares\\" + mszBLFileName;
             }
             catch

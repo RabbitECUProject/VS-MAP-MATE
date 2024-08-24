@@ -1197,5 +1197,11 @@ namespace UDP
         {
             bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeFirmwareUpdate, 0);
         }
+
+        private void updateFirmwareviaJTAGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tclsFirmwareJTAG clsFirmwareJTAG = new tclsFirmwareJTAG();
+            clsFirmwareJTAG.ShowDialog();
+        }
     }
 }
