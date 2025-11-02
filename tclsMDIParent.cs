@@ -29,6 +29,7 @@ namespace UDP
         enMDIEndInitialise,
         enMDIRequestViewFocus,
         enMDIShowError,
+        enMDIRecordError,
         enMDIShowMessage,
         enMDIToolStripOnline,
         enMDIToolStripOffline,
@@ -383,15 +384,15 @@ namespace UDP
                         {
                             if (iLogicBlockViews < iLogicBlockViewCountMax)
                             {
-                                tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
-                                clsLogicBlockView.MdiParent = this;
-                                clsLogicBlockView.Show();
-                                mlstChildViews.Add(clsLogicBlockView);
-                                mlstLogicBlockView.Add(clsLogicBlockView);
-                                iLogicBlockViews++;
-                                iLogicBlockViewLastChildIndex = mlstChildViews.Count;
-                                mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex, tenWindowChildType.enLogicBlockView);
-                                iFormIDX++;
+                            tclsLogicBlockView clsLogicBlockView = new tclsLogicBlockView(iFormIDX);
+                            clsLogicBlockView.MdiParent = this;
+                            clsLogicBlockView.Show();
+                            mlstChildViews.Add(clsLogicBlockView);
+                            mlstLogicBlockView.Add(clsLogicBlockView);
+                            iLogicBlockViews++;
+                            iLogicBlockViewLastChildIndex = mlstChildViews.Count;
+                            mclsNavTreeView.vAddViewNode(Program.mAPP_clsXMLConfig.mailstWindowLists[iFormIDX][0].szLabel, iFormIDX, iLogicBlockViewLastChildIndex, tenWindowChildType.enLogicBlockView);
+                            iFormIDX++;
                             }
                             break;
                             /* TODO multiple views */
@@ -579,7 +580,7 @@ namespace UDP
 
         private void StripMenuItemUploadCal_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeUploading);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeUploading, 0);
 
             if (true == boResult)
             {
@@ -589,7 +590,7 @@ namespace UDP
 
         private void StripMenuItemDownloadCal_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeDownloading);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeDownloading, 0);
         }
 
         public void vNotify(tenMDIParentNotify enMDIParentNotify, int iData, string szErrorMessage, string szProgressMessage)
@@ -778,6 +779,11 @@ namespace UDP
                         MessageBox.Show(szErrorMessage, "System Error!");
                         break;
                     }
+                case tenMDIParentNotify.enMDIRecordError:
+                    {
+                        mclsNotify.vAppendNotices("Error", szErrorMessage);
+                        break;
+                    }
                 case tenMDIParentNotify.enMDIShowMessage:
                     {
                         mclsNotify.vAppendNotices("Message", szErrorMessage);
@@ -852,12 +858,12 @@ namespace UDP
 
         private void StripMenuItemFreezeCalToNVMTool_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeWorkingNVMFreeze);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeWorkingNVMFreeze, 0);
         }
 
         private void clearNVMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeNVMClear);
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeNVMClear, 0);
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -895,10 +901,10 @@ namespace UDP
         {
             if (null != mclsNotify)
             {
-                mclsNotify.Left = 0;
-                mclsNotify.Top = this.ClientRectangle.Height - 150;
-                mclsNotify.Width = this.ClientRectangle.Width;
-                mclsNotify.Show();
+            mclsNotify.Left = 0;
+            mclsNotify.Top = this.ClientRectangle.Height - 150;
+            mclsNotify.Width = this.ClientRectangle.Width;
+            mclsNotify.Show();
             }
         }
 
@@ -1180,6 +1186,22 @@ namespace UDP
             {
                 MessageBox.Show("Starting PDF alternate viewer");
             }
+        }
+
+        private void installUpdaterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeInstallCodePage1, 4);
+        }
+
+        private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeFirmwareUpdate, 0);
+        }
+
+        private void updateFirmwareviaJTAGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tclsFirmwareJTAG clsFirmwareJTAG = new tclsFirmwareJTAG();
+            clsFirmwareJTAG.ShowDialog();
         }
     }
 }

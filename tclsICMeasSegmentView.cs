@@ -341,40 +341,40 @@ namespace UDP
 
             if (null != maclsMeasureLabel)
             {
-                if (maclsMeasureLabel.Length != 0)
+            if (maclsMeasureLabel.Length != 0)
+            {
+                iIDX = 0;
+
+                foreach (Label label in maclsMeasureLabel)
                 {
-                    iIDX = 0;
-
-                    foreach (Label label in maclsMeasureLabel)
+                    if (null != label)
                     {
-                        if (null != label)
-                        {
-                            label.Left = 2 * this.Width / 40;
-                            label.Width = 5 * this.Width / 16;
-                            label.Font = new Font(label.Font.FontFamily, this.Width / 45);
-                            label.Height = (this.Height - 35) / (maclsMeasureLabel.Length + 1);
-                            label.Top = this.Height / 9 + iIDX * ((this.Height - 20) / (maclsMeasureLabel.Length + 1));
-                            label.TextAlign = ContentAlignment.TopRight;
-                        }
-
-                        iIDX++;
+                        label.Left = 2 * this.Width / 40;
+                        label.Width = 5 * this.Width / 16;
+                        label.Font = new Font(label.Font.FontFamily, this.Width / 45);
+                        label.Height = (this.Height - 35) / (maclsMeasureLabel.Length + 1);
+                        label.Top = this.Height / 9 + iIDX * ((this.Height - 20) / (maclsMeasureLabel.Length + 1));
+                        label.TextAlign = ContentAlignment.TopRight;
                     }
 
+                    iIDX++;
+                }
 
-                    iIDX = 0;
-                    int iRowIDX = 0;
-                    int iColIDX = 0;
 
-                    for (iRowIDX = 0; iRowIDX < maaclsDigitalMeter.GetLength(0); iRowIDX++)
+                iIDX = 0;
+                int iRowIDX = 0;
+                int iColIDX = 0;
+
+                for (iRowIDX = 0; iRowIDX < maaclsDigitalMeter.GetLength(0); iRowIDX++)
+                {
+                    for (iColIDX = 0; iColIDX < maaclsDigitalMeter.GetLength(1); iColIDX++)
                     {
-                        for (iColIDX = 0; iColIDX < maaclsDigitalMeter.GetLength(1); iColIDX++)
+                        if (null != maaclsDigitalMeter[iRowIDX, iColIDX])
                         {
-                            if (null != maaclsDigitalMeter[iRowIDX, iColIDX])
-                            {
-                                maaclsDigitalMeter[iRowIDX, iColIDX].Left = 3 * this.Width / 8 + iColIDX * this.Width / (2 * mlstSegCount[iRowIDX]);
-                                maaclsDigitalMeter[iRowIDX, iColIDX].Width = 9 * this.Width / (16 * mlstSegCount[iRowIDX]);
-                                maaclsDigitalMeter[iRowIDX, iColIDX].Height = (this.Height - 35) / (maclsMeasureLabel.Length + 1);
-                                maaclsDigitalMeter[iRowIDX, iColIDX].Top = this.Height / 9 + iRowIDX * ((this.Height - 20) / (maclsMeasureLabel.Length + 1));
+                            maaclsDigitalMeter[iRowIDX, iColIDX].Left = 3 * this.Width / 8 + iColIDX * this.Width / (2 * mlstSegCount[iRowIDX]);
+                            maaclsDigitalMeter[iRowIDX, iColIDX].Width = 9 * this.Width / (16 * mlstSegCount[iRowIDX]);
+                            maaclsDigitalMeter[iRowIDX, iColIDX].Height = (this.Height - 35) / (maclsMeasureLabel.Length + 1);
+                            maaclsDigitalMeter[iRowIDX, iColIDX].Top = this.Height / 9 + iRowIDX * ((this.Height - 20) / (maclsMeasureLabel.Length + 1));
                             }
                         }
                     }

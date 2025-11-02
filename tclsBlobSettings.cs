@@ -59,7 +59,8 @@ namespace UDP
                 "First Edge Rising Secondary",
                 "Trigger Type",
                 "Sync Type",
-                "Sync Phase Repeats"};
+                "Sync Phase Repeats",
+                "Ignition Tooth Timing Enable"};
 
             maclsCharacteristicLabel = new Label[aszSettingStrings.Length];
             maclsCharacteristicUnitsLabel = new Label[aszSettingStrings.Length];
@@ -468,7 +469,7 @@ namespace UDP
                         acPoints[iPointIDX].x = (Single)au16DataRepeat[iPointIDX / 2] / 100f + 10;
                         acPoints[iPointIDX + 1].x = (Single)au16DataRepeat[iPointIDX / 2] / 100f + 10;
 
-                        if (0 == edgePolarity)
+                        if (1 == edgePolarity)
                         {
                             acPoints[iPointIDX].y = 0.9f + offset;
                             acPoints[iPointIDX + 1].y = 0.1f + offset;
@@ -482,7 +483,7 @@ namespace UDP
 
                     acPoints[acPoints.Length - 1].x = 665;
 
-                    if (0 == edgePolarity)
+                    if (1 == edgePolarity)
                     {
                         acPoints[acPoints.Length - 1].y = 0.9f + offset;
                     }
@@ -784,8 +785,8 @@ namespace UDP
                 {
                     if (false == mboEnumMode[iCharIDX])
                     {
-                        maclsCharacteristicTextBox[iCharIDX].Text = szGetScaledData(maiCharCompuMethodIndices[iCharIDX], iCharIDX, sCharData, tenMCVElementType.enMCVChar);
-                    }
+                    maclsCharacteristicTextBox[iCharIDX].Text = szGetScaledData(maiCharCompuMethodIndices[iCharIDX], iCharIDX, sCharData, tenMCVElementType.enMCVChar);
+                }
                     else
                     {
                         int iVerbData = (Int32)sCharData;
@@ -1052,7 +1053,7 @@ namespace UDP
 
                     if (false == mboEnumMode[iCharacteristicIDX])
                     {
-                        maclsCharacteristicTextBox[iCharacteristicIDX].Left = this.Width - 230;
+                    maclsCharacteristicTextBox[iCharacteristicIDX].Left = this.Width - 230;
 
                         if (9 > iCharacteristicIDX)
                         {
@@ -1091,7 +1092,7 @@ namespace UDP
 
         private void buttonPrimary_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(360);
 
             SetInputArray(au16Elements, "Primary Trigger Table");
         }
@@ -1119,13 +1120,14 @@ namespace UDP
             }
         }
 
-        private UInt16[] ProcessTextInput()
+        private UInt16[] ProcessTextInput(int degreeSpread)
         {
             string szInput = textBoxPatternInput.Text;
             UInt16[] aiElements = null;
             UInt16[] aiElementsScaled = null;
             int iElementIDX = 0;
             string[] aszInput;
+            bool abort = false;
 
             szInput = szInput.Replace(" ", string.Empty);
 
@@ -1152,9 +1154,20 @@ namespace UDP
 
                 foreach (int element in aiElements)
                 {
-                    float val = (element * 65536) / 360;
-                    aiElementsScaled[iElementIDX] =  (UInt16)val;
-                    iElementIDX++;
+                    if (false == abort)
+                    {
+                        if (degreeSpread > element)
+                        {
+                            float val = (element * 65536) / degreeSpread;
+                            aiElementsScaled[iElementIDX] =  (UInt16)val;
+                            iElementIDX++;
+                        }
+                        else
+                        {
+                            abort = true;
+                            MessageBox.Show("An error occurred - the input angle is too large");
+                        }
+                    }
                 }
 
                 aiElements = aiElementsScaled;
@@ -1165,14 +1178,14 @@ namespace UDP
 
         private void buttonSecondary_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(720);
 
             SetInputArray(au16Elements, "Secondary Trigger Table");
         }
 
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            UInt16[] au16Elements = ProcessTextInput();
+            UInt16[] au16Elements = ProcessTextInput(360);
 
             SetInputArray(au16Elements, "Sync Points Table");
         }
@@ -1296,7 +1309,6 @@ namespace UDP
                     {
                         szTriggerCustomIndex = null;
                     }
-
 
 
                     if ((szTriggerPrimary != null) &&

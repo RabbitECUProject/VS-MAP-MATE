@@ -37,6 +37,7 @@ namespace UDP
         int[] maiVarCompuMethodIndices;
         int[] maiOperandIndices;
         int[] maiChainOutputIndices;
+        int[] maiRelaysOutputIDX;
 
         String[] maszVarCompuMethodFormat;
         List<int> mlstFormIndices;
@@ -489,8 +490,6 @@ namespace UDP
         {
             if (true == reload)
             {
-                String szOutputString;
-                String szOutputStringAlias;
                 int iOutputIDX;
                 tclsIniParser clsIniParser = new tclsIniParser(AppDomain.CurrentDomain.BaseDirectory + "Config\\MDAC ECUHOST Calibration.INI");
 
@@ -499,7 +498,34 @@ namespace UDP
                 maclsChainOrOutputCombo[iCharIDX].Items.Add("OR NEXT");
                 maclsChainOrOutputCombo[iCharIDX].Items.Add("NOT NEXT");
                 maclsChainOrOutputCombo[iCharIDX].Items.Add("XOR NEXT");
+                iOutputIDX = 5;
 
+                int iRelaysListIDX = tclsASAM.iGetCharIndex("DUMMY RELAY");
+                String szCompuMethod = tclsASAM.milstCharacteristicList[iRelaysListIDX].szCompuMethod;
+                int iRelayCompuMethodIDX = tclsASAM.iGetCompuMethodIndexFromCompuMethod(szCompuMethod);
+                int iVerbTableIDX = tclsASAM.milstCompuMethodList[iRelayCompuMethodIDX].iVerbTableIDX;
+                int iVerbCount = tclsASAM.milstVarVerbList[iVerbTableIDX].lstVarVerb.Count;
+                maiRelaysOutputIDX = new int[2 * iVerbCount + 5];
+                maiRelaysOutputIDX[0] = 0;
+                maiRelaysOutputIDX[1] = 1;
+                maiRelaysOutputIDX[2] = 2;
+                maiRelaysOutputIDX[3] = 3;
+                maiRelaysOutputIDX[4] = 4;
+
+                if (0 < iVerbCount)
+                {
+                    foreach (tstVerbRecord stVerbRecord in tclsASAM.milstVarVerbList[iVerbTableIDX].lstVarVerb)
+                    {
+                        maclsChainOrOutputCombo[iCharIDX].Items.Add(stVerbRecord.szVerb + " ON");
+                        maiRelaysOutputIDX[iOutputIDX] = 2 * stVerbRecord.iValueLow + 5;
+                        iOutputIDX++;
+                        maclsChainOrOutputCombo[iCharIDX].Items.Add(stVerbRecord.szVerb + " OFF");
+                        maiRelaysOutputIDX[iOutputIDX] = 2 * stVerbRecord.iValueLow + 6;
+                        iOutputIDX++;
+                    }
+                }
+
+                /*
                 for (iOutputIDX = 0; iOutputIDX < 99; iOutputIDX++)
                 {
                     szOutputString = "Output " + iOutputIDX.ToString();
@@ -530,14 +556,28 @@ namespace UDP
 
                     maclsChainOrOutputCombo[iCharIDX].Items.Add(szOutputString);
                 }
+                */
             }
             else
             {
-                if (maclsChainOrOutputCombo[iCharIDX].Items.Count > u32Data)
+                UInt32 u32ComboIDX = 0;
+
+                foreach (int iValue in maiRelaysOutputIDX)
+                {
+                    if (u32Data == (UInt32)iValue)
+                    {
+                        u32Data = u32ComboIDX;
+                        break;
+                    }
+
+                    u32ComboIDX++;
+                }
+
+                if (maclsChainOrOutputCombo[iCharIDX].Items.Count > u32ComboIDX)
                 {
                     Invoke((MethodInvoker)delegate
                     {
-                        maclsChainOrOutputCombo[iCharIDX].SelectedIndex = (int)u32Data;
+                        maclsChainOrOutputCombo[iCharIDX].SelectedIndex = (int)u32ComboIDX;
                     });
                 }
             }
@@ -705,7 +745,8 @@ namespace UDP
             au32Data[0] = u32Address + u32Masks;
             Program.vUpdateCalibration(tclsASAM.milstCharacteristicList[maiVarWordIndices[iControlIDX]].szCharacteristicName, au32Data);
 
-            UInt16 u16ChainOrOutput = (UInt16)maclsChainOrOutputCombo[iControlIDX].SelectedIndex;
+            UInt16 u16TempIDX = (UInt16)maclsChainOrOutputCombo[iControlIDX].SelectedIndex;
+            UInt16 u16ChainOrOutput = (UInt16)maiRelaysOutputIDX[u16TempIDX];
             au8Data = BitConverter.GetBytes(u16ChainOrOutput);
             tclsDataPage.u16SetWorkingData(tclsASAM.milstCharacteristicList[maiChainOutputIndices[iControlIDX]].u32Address,
                 BitConverter.ToUInt16(au8Data, 0));
@@ -839,7 +880,7 @@ namespace UDP
                     combo.Left = this.Width / 50;
                     combo.Width = 35 * this.Width / 100;
                     combo.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1);
-                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 65);
+                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 75);
                     combo.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     iIDX++;
                 }
@@ -850,7 +891,7 @@ namespace UDP
                     combo.Left = this.Width / 50 + 35 * this.Width / 100;
                     combo.Width = 10 * this.Width / 100;
                     combo.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1);
-                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 65);
+                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 75);
                     combo.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     iIDX++;
                 }
@@ -860,7 +901,7 @@ namespace UDP
                 {
                     textBox.Left = this.Width / 50 + 40 * this.Width / 100 + 5 * this.Width / 100;
                     textBox.Width = 12 * this.Width / 100;
-                    textBox.Font = new Font(textBox.Font.FontFamily, this.Width / 40);
+                    textBox.Font = new Font(textBox.Font.FontFamily, this.Width / 45);
                     textBox.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1) - 5;
                     textBox.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     textBox.TextAlign = HorizontalAlignment.Center;
@@ -873,7 +914,7 @@ namespace UDP
                 {
                     label.Left = this.Width / 50 + 40 * this.Width / 100 + 5 * this.Width / 100 + 12 * this.Width / 100;
                     label.Width = 13 * this.Width / 100;
-                    label.Font = new Font(label.Font.FontFamily, this.Width / 65);
+                    label.Font = new Font(label.Font.FontFamily, this.Width / 75);
                     label.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1) - 10;
                     label.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     label.TextAlign = ContentAlignment.TopRight;
@@ -885,7 +926,7 @@ namespace UDP
                     combo.Left = this.Width / 50 + 40 * this.Width / 100 + 5 * this.Width / 100 + 20 * this.Width / 100 + 5 * this.Width / 100;
                     combo.Width = 15 * this.Width / 100;
                     combo.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1);
-                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 65);
+                    combo.Font = new Font(combo.Font.FontFamily, this.Width / 95);
                     combo.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     iIDX++;
                 }
@@ -895,7 +936,7 @@ namespace UDP
                 {
                     button.Left = this.Width / 50 + 40 * this.Width / 100 + 5 * this.Width / 100 + 20 * this.Width / 100 + 5 * this.Width / 100 + 15 * this.Width / 100;
                     button.Width = 10 * this.Width / 100;
-                    button.Font = new Font(button.Font.FontFamily, this.Width / 55);
+                    button.Font = new Font(button.Font.FontFamily, this.Width / 65);
                     button.Height = (this.Height - 35) / (maclsCharacteristicUnitsLabel.Length + 1) - 15;
                     button.Top = this.Height / 12 + iIDX * ((this.Height - 20) / (maclsCharacteristicUnitsLabel.Length + 1));
                     iIDX++;

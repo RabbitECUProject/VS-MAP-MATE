@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UDP</RootNamespace>
     <AssemblyName>MDAC ECUHOST Calibration</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -42,7 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -72,6 +72,10 @@
     <Reference Include="LBIndustrialCtrls, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\MDAC\ECUHOST\LBIndustrialCtrls.dll</HintPath>
+    </Reference>
+    <Reference Include="MDACFirmwareUpdateInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\MDAC\ECUHOST\MDACFirmwareUpdateInterface.dll</HintPath>
     </Reference>
     <Reference Include="MDACUDPRP1210Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -148,6 +152,7 @@
     <Compile Include="tclsBMXMsg.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tclsCodePage.cs" />
     <Compile Include="tclsCommsInterface.cs" />
     <Compile Include="tclsDSG.cs">
       <SubType>Form</SubType>
@@ -156,6 +161,12 @@
       <DependentUpon>tclsDSG.cs</DependentUpon>
     </Compile>
     <Compile Include="tclsErrLog.cs" />
+    <Compile Include="tclsFirmwareJTAG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tclsFirmwareJTAG.Designer.cs">
+      <DependentUpon>tclsFirmwareJTAG.cs</DependentUpon>
+    </Compile>
     <Compile Include="tclsHelpList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +194,7 @@
     <Compile Include="tclsInputsSetupWizard.Designer.cs">
       <DependentUpon>tclsInputsSetupWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="tclsLargeCodePage.cs" />
     <Compile Include="tclsLogicBlockView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tclsDSG.resx">
       <DependentUpon>tclsDSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tclsFirmwareJTAG.resx">
+      <DependentUpon>tclsFirmwareJTAG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsHelpList.resx">
       <DependentUpon>tclsHelpList.cs</DependentUpon>
@@ -299,6 +314,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tclsSplash.resx">
       <DependentUpon>tclsSplash.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="tclsTuningTargetDisplay.resx">
       <DependentUpon>tclsTuningTargetDisplay.cs</DependentUpon>
@@ -416,6 +432,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\907.ico" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AcroPDFLib">

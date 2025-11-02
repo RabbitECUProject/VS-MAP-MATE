@@ -359,7 +359,7 @@ namespace UDP
                     }
                     else
                     {
-                iCompuMethodIDX = tclsASAM.iGetCompuMethodIndexFromCompuMethod(szAxisCompuMethod);
+                        iCompuMethodIDX = tclsASAM.iGetCompuMethodIndexFromCompuMethod(szAxisCompuMethod);
                     }
                 }
                 else

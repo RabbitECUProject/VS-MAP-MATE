@@ -40,7 +40,7 @@ namespace UDP
             get { return mboChannelActive; }
         }
 
-        public tclsUDSComms(string szAdapterDeviceName, IntPtr MDIFormHandle)
+        public tclsUDSComms(string szAdapterDeviceName, IntPtr MDIFormHandle, bool boFirmwareDownloadPending)
         {
             string szTransferBlockSize;
             mclsUDS = new tclsUDS();
@@ -77,9 +77,20 @@ namespace UDP
             mau8InPacketBuffer = new byte[ConstantData.BUFFERSIZES.u16UDSOU_BUFF_RXPAYLOAD_SIZE];
             mau8ChannelTXPayload = new byte[ConstantData.BUFFERSIZES.u16UDSOU_BUFF_TXPAYLOAD_SIZE];
 
-            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-            mstTransferPageCB.u32StartAddress = 0;
-            mstTransferPageCB.u32EndAddress = 0;
+            if (false == boFirmwareDownloadPending)
+            {
+                mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
+                mstTransferPageCB.u32StartAddress = 0;
+                mstTransferPageCB.u32EndAddress = 0;
+            }
+            else
+            {
+                mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeFirmwareUpdate;
+                mstTransferPageCB.u32StartAddress = 0;
+                mstTransferPageCB.u32EndAddress = 0x3ffff;
+                mstTransferPageCB.iPagesTotal = 12;
+            }
+
             mstTransferPageCB.iBlockSize = miTransferBlockSize;
             mstTransferPageCB.u32BytesToTransfer = 0;
             miDDDIIDX = 0;
@@ -103,6 +114,7 @@ namespace UDP
             byte[] au8Payload;
             bool boNewPacket = false;
             int iMaxTXData = 0;
+            int iCodePageIDX = 0;
 
             if ((true == mboChannelActive) && 
                 (false == Program.mboCommsSuspend) && 
@@ -130,8 +142,8 @@ namespace UDP
                         Array.Clear(mau8ChannelTXPayload, 0, base.mau8ChannelTXPayload.Length);
 
                         /* Have all DDDI commands been sent? */
-                        if ((miDDDIIDX < ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT) &&
-                            (100 > mstPollingCB.u32DDDIRetries))
+                        if (((miDDDIIDX < ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT) &&
+                            (100 > mstPollingCB.u32DDDIRetries)) && (tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode))
                         {
                             mclsUDS.vClearQueue();
 
@@ -186,7 +198,7 @@ namespace UDP
                                 mstPollingCB.u32DDDIWaitResponseCount--;
                             }
                         }
-                        else if (miDDDIIDX < ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT)
+                        else if ((miDDDIIDX < ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT) && (tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode))
                         {
                             Program.vNotifyProgramEvent(tenProgramEvent.enProgramError, 0, "Install Dynamic Data Identifier Service Failed");
                             miDDDIIDX = ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT;
@@ -280,7 +292,7 @@ namespace UDP
                             {
                                 if (0 == mstTransferPageCB.u32WaitResponseCount)
                                 {
-                                    mstTransferPageCB.iBlockSize = miTransferBlockSize / 8;
+                                    mstTransferPageCB.iBlockSize = miTransferBlockSize / 4;
                                     byte[] au8Data = new byte[mstTransferPageCB.iBlockSize];
 
                                     tclsDataPage.au8GetWorkingData(mstTransferPageCB.u32StartAddress, ref au8Data);
@@ -300,12 +312,186 @@ namespace UDP
 
                                 iMaxTXData = mau8ChannelTXPayload.Length;
                             }
+                            else if (tenChannelMode.enChannelModeFirmwareUpdate == mstTransferPageCB.enChannelMode)
+                            {
+                                // flush the pipes - app is over
+                                base.mclsUDS.vClearQueue();
+
+                                if (0 == miFirmwareUpdateCounts)
+                                {
+                                    Program.vNotifyProgramEvent(tenProgramEvent.enUSBFirmwareDisconnect, 0, "Firmware USB Disconnect");
+                                }
+
+                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                        ConstantData.UDS.ru8SSID_RC_START,
+                                    ConstantData.UDS.ru8RCID_InstallFirmware,
+                                    0,
+                                    null);
+
+                                iMaxTXData = mau8ChannelTXPayload.Length;
+                                mstTransferPageCB.u32Waits = 10;
+
+                                if (++miFirmwareUpdateCounts > 5)
+                                {
+                                    mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePage1;
+                                    mstTransferPageCB.boEnabled = true;
+                                }
+                            }
+                            else if ((tenChannelMode.enChannelModeInstallCodePage1 == mstTransferPageCB.enChannelMode) ||
+                                (tenChannelMode.enChannelModeInstallCodePage2 == mstTransferPageCB.enChannelMode) ||
+                                (tenChannelMode.enChannelModeInstallCodePage3 == mstTransferPageCB.enChannelMode) ||
+                                (tenChannelMode.enChannelModeInstallCodePage4 == mstTransferPageCB.enChannelMode) ||
+                                (tenChannelMode.enChannelModeInstallCodePageComplete == mstTransferPageCB.enChannelMode))
+                            {
+                                if (0 == mstTransferPageCB.u32Waits)
+                                {
+                                    if (false == mstTransferPageCB.boEnabled)
+                                    {
+                                        switch (mstTransferPageCB.enChannelMode)
+                                        {
+                                            case tenChannelMode.enChannelModeInstallCodePage1:
+                                            {
+                                                if (4 >= mstTransferPageCB.iPagesTotal)
+                                                {
+                                                    base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                            ConstantData.UDS.ru8SSID_RC_START,
+                                                        ConstantData.UDS.ru8RCID_CodeInstallEnable,
+                                                        0,
+                                                        null);
+                                                }
+                                                else
+                                                {
+                                                    iCodePageIDX = 4 >= mstTransferPageCB.iPagesTotal ?
+                                                        0x300 : 0x40 * (mstTransferPageCB.iPagesComplete - 1);
+
+                                                    base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                        ConstantData.UDS.ru8SSID_RC_START,
+                                                        ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                        iCodePageIDX,
+                                                        null);
+                                                }
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 20;
+                                                break;
+                                            }
+                                            case tenChannelMode.enChannelModeInstallCodePage2:
+                                            {
+                                                iCodePageIDX = 4 >= mstTransferPageCB.iPagesTotal ?
+                                                    0x300 : 0x40 * (mstTransferPageCB.iPagesComplete - 1);
+
+                                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                    ConstantData.UDS.ru8SSID_RC_START,
+                                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                    iCodePageIDX,
+                                                    null);
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 20;
+                                                break;
+                                            }
+                                            case tenChannelMode.enChannelModeInstallCodePage3:
+                                            {
+                                                iCodePageIDX = 4 >= mstTransferPageCB.iPagesTotal ?
+                                                    0x340 : 0x40 * (mstTransferPageCB.iPagesComplete - 1);
+
+                                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                    ConstantData.UDS.ru8SSID_RC_START,
+                                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                    iCodePageIDX, 
+                                                    null);
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 20;
+                                                break;
+                                            }
+                                            case tenChannelMode.enChannelModeInstallCodePage4:
+                                            {
+                                                iCodePageIDX = 4 >= mstTransferPageCB.iPagesTotal ?
+                                                    0x380 : 0x40 * (mstTransferPageCB.iPagesComplete - 1);
+
+                                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                    ConstantData.UDS.ru8SSID_RC_START,
+                                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                    iCodePageIDX,
+                                                    null);
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 20;
+                                                break;
+                                            }
+                                            case tenChannelMode.enChannelModeInstallCodePageComplete:
+                                            {
+                                                iCodePageIDX = 4 >= mstTransferPageCB.iPagesTotal ?
+                                                    0x3c0 : 0x40 * (mstTransferPageCB.iPagesComplete - 1);
+
+                                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                    ConstantData.UDS.ru8SSID_RC_START,
+                                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                    iCodePageIDX,
+                                                    null);
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 10;
+                                                break;
+                                            }
+                                            default:
+                                            {
+                                                base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
+                                                    1,
+                                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                                    0,
+                                                    null);
+
+                                                mstTransferPageCB.u32WaitResponseCount = 1;
+                                                mstTransferPageCB.u32Waits = 10;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (0 == mstTransferPageCB.u32WaitResponseCount)
+                                        {
+                                            mstTransferPageCB.iBlockSize = miTransferBlockSize / 4;
+                                            byte[] au8Data = new byte[mstTransferPageCB.iBlockSize];
+
+                                            if (4 >= mstTransferPageCB.iPagesTotal)
+                                            {
+                                                tclsCodePage.au8GetWorkingCode(mstTransferPageCB.u32CodeAddress, ref au8Data);
+                                            }
+                                            else
+                                            {
+                                                tclsLargeCodePage.au8GetWorkingCode(mstTransferPageCB.u32CodeAddress, ref au8Data);
+                                            }
+
+                                            base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_WMBA,
+                                                0,
+                                                mstTransferPageCB.u32StartAddress,
+                                                (Int32)mstTransferPageCB.iBlockSize,
+                                                au8Data);
+
+                                            mstTransferPageCB.u32WaitResponseCount = 1;
+                                        }
+                                        else
+                                        {
+                                            mstTransferPageCB.u32WaitResponseCount--;
+                                        }
+                                    }
+
+                                    iMaxTXData = mau8ChannelTXPayload.Length;
+                                }
+                                else
+                                {
+                                    mstTransferPageCB.u32Waits--;
+                                }
+                            }
                             else if (tenChannelMode.enChannelModeWorkingNVMFreeze == mstTransferPageCB.enChannelMode)
                             {
                                 base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
-                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
                                     1,
-                                    0,
+                                    ConstantData.UDS.ru8RCID_WorkNVMFreeze,
+                                    0xffff,
                                     null);
 
                                 iMaxTXData = mau8ChannelTXPayload.Length;
@@ -313,8 +499,8 @@ namespace UDP
                             else if (tenChannelMode.enChannelModeNVMClear == mstTransferPageCB.enChannelMode)
                             {
                                 base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_RC,
-                                    ConstantData.UDS.ru8RCID_WorkNVMClear,
                                     1,
+                                    ConstantData.UDS.ru8RCID_WorkNVMClear,
                                     0,
                                     null);
 
@@ -327,6 +513,7 @@ namespace UDP
                         if ((null == clsUDSTXFrame) &&
                             (tenChannelMode.enChannelModeReplayScript != mstTransferPageCB.enChannelMode) &&
                             (tenChannelMode.enChannelModeUploading != mstTransferPageCB.enChannelMode) &&
+                            (tenChannelMode.enChannelModeFirmwareUpdate != mstTransferPageCB.enChannelMode) &&
                             (miDDDIIDX >= ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT))
                         {
                             base.mclsUDS.vStartRPC(ConstantData.UDS.ru8SID_TP,
@@ -451,63 +638,191 @@ namespace UDP
         public bool boTransferCallBack(ref UInt32 u32TargetAddress)
         {
             bool boTransferComplete = false;
+            bool boResult = false;
 
             switch (mstTransferPageCB.enChannelMode)
             {
                 case tenChannelMode.enChannelModeUploading:
+                {
+                    if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
                     {
-                        if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
-                        {
-                            mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
-                            mstTransferPageCB.u32WaitResponseCount = 0;
-                            mstTransferPageCB.fProgress = 80 * (mstTransferPageCB.u32StartAddress - tclsASAM.u32GetCharMinAddress()) /
-                                                                (tclsASAM.u32GetCharMaxAddress() - tclsASAM.u32GetCharMinAddress());
-                        }
-
-                        if (mstTransferPageCB.u32EndAddress <= mstTransferPageCB.u32StartAddress)
-                        {
-                            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-                            boTransferComplete = true;
-                            mstTransferPageCB.fProgress = 100;
-                        }
-                        break;
+                        mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                        mstTransferPageCB.u32WaitResponseCount = 0;
+                        mstTransferPageCB.fProgress = 80 * (mstTransferPageCB.u32StartAddress - tclsASAM.u32GetCharMinAddress()) /
+                                                            (tclsASAM.u32GetCharMaxAddress() - tclsASAM.u32GetCharMinAddress());
                     }
+
+                    if (mstTransferPageCB.u32EndAddress <= mstTransferPageCB.u32StartAddress)
+                    {
+                        mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
+                        boTransferComplete = true;
+                        mstTransferPageCB.fProgress = 100;
+                    }
+                    break;
+                }
                 case tenChannelMode.enChannelModeDownloading:
+                {
+                    if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
+                    {
+                        mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                        mstTransferPageCB.u32WaitResponseCount = 0;
+                        mstTransferPageCB.fProgress = 80 * (mstTransferPageCB.u32StartAddress - tclsASAM.u32GetCharMinAddress()) /
+                                                            (tclsASAM.u32GetCharMaxAddress() - tclsASAM.u32GetCharMinAddress());
+                    }
+
+                    if (mstTransferPageCB.u32EndAddress <= mstTransferPageCB.u32StartAddress)
+                    {
+                        mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
+                        boTransferComplete = true;
+                        mstTransferPageCB.fProgress = 100;
+                    }
+
+                    break;
+                }
+                case tenChannelMode.enChannelModeInstallCodePage1:
+                {
+                    if (false == mstTransferPageCB.boEnabled)
+                    {
+                        // must have had RC confirmation
+                        mstTransferPageCB.boEnabled = true;
+                        mstTransferPageCB.u32Waits = 0;
+                    }
+                    else
                     {
                         if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
                         {
                             mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32CodeAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.iBytesComplete += mstTransferPageCB.iBlockSize;
                             mstTransferPageCB.u32WaitResponseCount = 0;
-                            mstTransferPageCB.fProgress = 80 * (mstTransferPageCB.u32StartAddress - tclsASAM.u32GetCharMinAddress()) /
-                                                                (tclsASAM.u32GetCharMaxAddress() - tclsASAM.u32GetCharMinAddress());
+                            mstTransferPageCB.fProgress = (100f * mstTransferPageCB.iBytesComplete) / (0x4000 * mstTransferPageCB.iPagesTotal);
                         }
 
-                        if (mstTransferPageCB.u32EndAddress <= mstTransferPageCB.u32StartAddress)
+                        if (0x4000 <= (mstTransferPageCB.u32CodeAddress % 0x10000))
                         {
-                            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-                            boTransferComplete = true;
-                            mstTransferPageCB.fProgress = 100;
+                            mstTransferPageCB.iPagesComplete++;
+                            mstTransferPageCB.u32StartAddress -= 0x4000;
+                            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePage2;
+                            mstTransferPageCB.boEnabled = false;
+                            mstTransferPageCB.u32Waits = 20;
+                        }
+                    }
+
+                    break;
+                }
+                case tenChannelMode.enChannelModeInstallCodePage2:
+                {
+                    if (false == mstTransferPageCB.boEnabled)
+                    {
+                        // must have had RC confirmation
+                        mstTransferPageCB.boEnabled = true;
+                        mstTransferPageCB.u32Waits = 0;
+                    }
+                    else
+                    {
+                        if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
+                        {
+                            mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32CodeAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.iBytesComplete += mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32WaitResponseCount = 0;
+                            mstTransferPageCB.fProgress = (100f * mstTransferPageCB.iBytesComplete) / (0x4000 * mstTransferPageCB.iPagesTotal);
                         }
 
-                        break;
+                        if (0x8000 <= (mstTransferPageCB.u32CodeAddress % 0x10000))
+                        {
+                            mstTransferPageCB.iPagesComplete++;
+                            mstTransferPageCB.u32StartAddress -= 0x4000;
+                            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePage3;
+                            mstTransferPageCB.boEnabled = false;
+                            mstTransferPageCB.u32Waits = 20;
+                        }
                     }
+
+                    break;
+                }
+                case tenChannelMode.enChannelModeInstallCodePage3:
+                {
+                    if (false == mstTransferPageCB.boEnabled)
+                    {
+                        // must have had RC confirmation
+                        mstTransferPageCB.boEnabled = true;
+                        mstTransferPageCB.u32Waits = 0;
+                    }
+                    else
+                    {
+                        if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
+                        {
+                            mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32CodeAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.iBytesComplete += mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32WaitResponseCount = 0;
+                            mstTransferPageCB.fProgress = (100f * mstTransferPageCB.iBytesComplete) / (0x4000 * mstTransferPageCB.iPagesTotal);
+                        }
+
+                        if (0xc000 <= (mstTransferPageCB.u32CodeAddress % 0x10000))
+                        {
+                            mstTransferPageCB.iPagesComplete++;
+                            mstTransferPageCB.u32StartAddress -= 0x4000;
+                            mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePage4;
+                            mstTransferPageCB.boEnabled = false;
+                            mstTransferPageCB.u32Waits = 20;
+                        }
+                    }
+
+                    break;
+                }
+                case tenChannelMode.enChannelModeInstallCodePage4:
+                {
+                    if (false == mstTransferPageCB.boEnabled)
+                    {
+                        // must have had RC confirmation
+                        mstTransferPageCB.boEnabled = true;
+                        mstTransferPageCB.u32Waits = 0;
+                    }
+                    else
+                    {
+                        if (u32TargetAddress == mstTransferPageCB.u32StartAddress)
+                        {
+                            mstTransferPageCB.u32StartAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32CodeAddress += (UInt32)mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.iBytesComplete += mstTransferPageCB.iBlockSize;
+                            mstTransferPageCB.u32WaitResponseCount = 0;
+                            mstTransferPageCB.fProgress = (100f * mstTransferPageCB.iBytesComplete) / (0x4000 * mstTransferPageCB.iPagesTotal);
+                        }
+
+                        if (0x4000 > (mstTransferPageCB.u32CodeAddress % 0x10000))
+                        {
+                            mstTransferPageCB.iPagesComplete++;
+                            mstTransferPageCB.boEnabled = false;
+                            mstTransferPageCB.u32Waits = 20;
+
+                            if (mstTransferPageCB.iPagesComplete == mstTransferPageCB.iPagesTotal)
+                            {
+                                mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePageComplete;
+                            }
+                            else
+                            {
+                                mstTransferPageCB.u32StartAddress -= 0x4000;
+                                mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeInstallCodePage1;
+                            }
+                        }
+                    }
+
+                    break;
+                }
+                case tenChannelMode.enChannelModeInstallCodePageComplete:
                 case tenChannelMode.enChannelModeWorkingNVMFreeze:
-                    {
-                        mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-                        boTransferComplete = true;
-                        break;
-                    }
-                case tenChannelMode.enChannelModeNVMClear:
-                    {
-                        mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-                        boTransferComplete = true;
-                        break;
-                    }
+                {
+                    mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
+                    boTransferComplete = true;
+                    break;
+                }
                 default:
-                    {
-                        mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
-                        break;
-                    }
+                {
+                    mstTransferPageCB.enChannelMode = tenChannelMode.enChannelModeNone;
+                    break;
+                }
             }
             return boTransferComplete;
         }
@@ -574,7 +889,7 @@ namespace UDP
 
             if (tenProgramEvent.enRPCDDDIOK == mstRPCResponse.enRPCResponse)
             {
-                //Program.vNotifyProgramEvent(mstRPCResponse.enRPCResponse, 0, "");
+                Program.vNotifyProgramEvent(mstRPCResponse.enRPCResponse, 0, "");
 
                 if (miDDDIIDX < ConstantData.UDS.ru8UDS_MEAS_LIST_COUNT)
                 {
@@ -777,18 +1092,60 @@ namespace UDP
             return base.mau8ChannelTXPayload;
         }
 
-        public bool boRequestCalPageTransfer(tenChannelMode enChannelMode)
+        public bool boRequestCalPageTransfer(tenChannelMode enChannelMode, int iPageCount)
         {
             bool boResult = false;
 
             if (tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode)
             {
-                mstTransferPageCB.enChannelMode = enChannelMode;
-                mstTransferPageCB.u32StartAddress = tclsASAM.u32GetCharMinAddress();
-                mstTransferPageCB.u32EndAddress = tclsASAM.u32GetCharMaxAddress();
-                mstTransferPageCB.u32BytesToTransfer = mstTransferPageCB.u32EndAddress - mstTransferPageCB.u32StartAddress + 1;
-                mstTransferPageCB.fProgress = 0;
-                boResult = true;
+                if (tenChannelMode.enChannelModeDownloading == enChannelMode)
+                {
+                    mstTransferPageCB.enChannelMode = enChannelMode;
+                    mstTransferPageCB.u32StartAddress = tclsASAM.u32GetCharMinAddress();
+                    mstTransferPageCB.u32EndAddress = tclsASAM.u32GetCharMaxAddress();
+                    mstTransferPageCB.u32BytesToTransfer = mstTransferPageCB.u32EndAddress - mstTransferPageCB.u32StartAddress + 1;
+                    mstTransferPageCB.fProgress = 0;
+                    boResult = true;
+                }
+                else if (tenChannelMode.enChannelModeInstallCodePage1 == enChannelMode)
+                {
+                    mstTransferPageCB.boEnabled = false;
+                    mstTransferPageCB.enChannelMode = enChannelMode;
+
+                    if (4 >= iPageCount)
+                    {
+                        mstTransferPageCB.iPagesTotal = iPageCount;
+                        mstTransferPageCB.u32StartAddress = tclsASAM.u32GetCharMinAddress();
+                        mstTransferPageCB.u32EndAddress = tclsASAM.u32GetCharMinAddress() + 0x3fff;
+                    }
+                    else
+                    {
+                        mstTransferPageCB.iPagesTotal = iPageCount;
+                        mstTransferPageCB.u32StartAddress = 0;
+                        mstTransferPageCB.u32EndAddress = 0x3fff;
+                    }
+
+                    mstTransferPageCB.u32BytesToTransfer = 0x4000;
+                    mstTransferPageCB.fProgress = 0;
+                    mstTransferPageCB.iPagesTotal = iPageCount;
+                    mstTransferPageCB.iPagesComplete = 0;
+                    mstTransferPageCB.iBytesComplete = 0;
+                    boResult = true;
+                }
+                else if (tenChannelMode.enChannelModeUploading == enChannelMode)
+                {
+                    mstTransferPageCB.enChannelMode = enChannelMode;
+                    mstTransferPageCB.u32StartAddress = tclsASAM.u32GetCharMinAddress();
+                    mstTransferPageCB.u32EndAddress = tclsASAM.u32GetCharMaxAddress();
+                    mstTransferPageCB.u32BytesToTransfer = mstTransferPageCB.u32EndAddress - mstTransferPageCB.u32StartAddress + 1;
+                    mstTransferPageCB.fProgress = 0;
+                    boResult = true;
+                }
+                else
+                {
+                    mstTransferPageCB.enChannelMode = enChannelMode;
+                    boResult = true;
+                }
             }
 
             return boResult;
@@ -830,12 +1187,18 @@ namespace UDP
     public struct tstTransferPageCB
     {
         public tenChannelMode enChannelMode;
+        public UInt32 u32CodeAddress;
         public UInt32 u32StartAddress;
         public UInt32 u32EndAddress;
         public UInt32 u32BytesToTransfer;
         public UInt32 u32WaitResponseCount;
         public int iBlockSize;
         public Single fProgress;
+        public bool boEnabled;
+        public int iPagesTotal;
+        public int iPagesComplete;
+        public int iBytesComplete;
+        public UInt32 u32Waits;
     }
 
     public struct tstPollingCB

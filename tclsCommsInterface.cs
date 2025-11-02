@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MDACUDSDotNet64Interface;
+using System.IO.Ports;
+using System.Windows.Forms;
 
 namespace UDP
 {
@@ -35,7 +37,7 @@ namespace UDP
         tenCommsType menCommsType;
         tclsUDSComms mclsUDSComms;
         bool mUSBCDCSubscribed = false;
-
+        bool mboUserPortChangePrompted;
 
         public int GetUSBPendingCount()
         {
@@ -106,7 +108,7 @@ namespace UDP
             try
             {
                 szBaud = mclsIniParser.GetSetting("Devices", "ComsBaud");
-                iBaud = Convert.ToInt16(szBaud);
+                iBaud = Convert.ToInt32(szBaud);
             }
             catch
             {
@@ -206,7 +208,43 @@ namespace UDP
                 }
                 case tenCommsType.enUSBCDC:
                 {
-                    if ((null != szBaud) && (null != szCommPort))
+                    bool boPortFound = false;
+                    string[] aszComPorts = SerialPort.GetPortNames();
+
+                    foreach (String szPort in aszComPorts)
+                    {
+                        if (!boPortFound)
+                        {
+                            if (szPort.Contains(szCommPort))
+                            {
+                                boPortFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!boPortFound)
+                    {
+                        foreach (String szPort in aszComPorts)
+                        {
+                            if (!boPortFound)
+                            {
+                                if (!mboUserPortChangePrompted)
+                                {
+                                    mboUserPortChangePrompted = true;
+                                    DialogResult result = MessageBox.Show(szCommPort + " was not found, use " + szPort + " instead?", "User another COM Port?", MessageBoxButtons.YesNo);
+
+                                    if (result == DialogResult.Yes)
+                                    {
+                                        boPortFound = true;
+                                        szCommPort = szPort;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if ((null != szBaud) && (null != szCommPort)) //matthew here
                     {
                         try
                         {
@@ -245,8 +283,8 @@ namespace UDP
                     {
                         if (true == mUSBCDCSubscribed)
                         {
-                            mclsUSBInterface.DataReceived -= vRXCallBackUDSOverUSB;
-                            mclsUSBInterface.Disconnect();
+                        mclsUSBInterface.DataReceived -= vRXCallBackUDSOverUSB;   
+                        mclsUSBInterface.Disconnect();
                             mUSBCDCSubscribed = false;
                         }
                     }
@@ -263,7 +301,6 @@ namespace UDP
                 }
             }
         }
-
 
         public void vRXCallBackUDSOverUSB(object sender, MDACUSBInterface.CaptureEventArgs e)
         {

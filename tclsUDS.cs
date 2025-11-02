@@ -30,12 +30,14 @@ namespace UDP
         enProgramOffline,
         enWindowElementsLoaded,
         enProgramError,
+        enProgramErrorSuppressMessageBox,
         enCommDisconnectOrError,
         enCommRequestSuspend,
         enCommRequestUnSuspend,
         enCommRequestDDDIReset,
         enUSBConnectDetected,
         enUSBDisconnectDetected,
+        enUSBFirmwareDisconnect,
         enSlowTaskProgress,
     }
 
@@ -331,10 +333,12 @@ namespace UDP
                 {
                     clsUDSFrame.au8Data[0] = 4;
                     clsUDSFrame.au8Data[1] = ConstantData.UDS.ru8SID_RC;
-                    clsUDSFrame.au8Data[2] = (byte)u32Arg1;
+                    clsUDSFrame.au8Data[2] = u8SSID;
                     clsUDSFrame.au8Data[3] = ConstantData.UDS.ru8RCID_HighByte;
-                    clsUDSFrame.au8Data[4] = u8SSID;
-                    clsUDSFrame.u8ByteCount = 5;
+                    clsUDSFrame.au8Data[4] = (byte)u32Arg1;
+                    clsUDSFrame.au8Data[5] = (byte)(i32Arg2 >> 8);
+                    clsUDSFrame.au8Data[6] = (byte)(i32Arg2 & 0xff);
+                    clsUDSFrame.u8ByteCount = 7;
                     mclsOutputQueue.Enqueue(clsUDSFrame);
                     break;
                 }
@@ -468,20 +472,29 @@ namespace UDP
                                             case ConstantData.UDS.ru8RCID_WorkNVMFreeze:
                                                 {
                                                     Program.mAPP_clsUDPComms.boTransferCallBack(ref u32TargetAddress);
+                                                    Program.vNotifyProgramEvent(tenProgramEvent.enProgramMessage, 0, "Writing NVM chunk...");
                                                     break;
                                                 }
                                             case ConstantData.UDS.ru8RCID_WorkNVMClear:
                                                 {
                                                     Program.mAPP_clsUDPComms.boTransferCallBack(ref u32TargetAddress);
+                                                Program.vNotifyProgramEvent(tenProgramEvent.enProgramMessage, 0, "Erasing NVM...");
+                                                break;
+                                                }
+                                            case ConstantData.UDS.ru8RCID_CodeInstallEnable:
+                                                {
+                                                    Program.mAPP_clsUDPComms.boTransferCallBack(ref u32TargetAddress);
+                                                    Program.vNotifyProgramEvent(tenProgramEvent.enProgramMessage, 0, "Preparing for code installation...");
                                                     break;
                                                 }
-                                            default:
+                                        default:
                                                 {
                                                     break;
                                                 }
                                         }
                                     }
-                                    break;
+
+                                break;
                                 }
 
                             case 0x40 + ConstantData.UDS.ru8SID_DDDI:

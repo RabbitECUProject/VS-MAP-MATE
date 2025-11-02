@@ -55,6 +55,8 @@ namespace UDP
             this.toolStripSplitButtonTools = new System.Windows.Forms.ToolStripSplitButton();
             this.replayScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMessagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.installUpdaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSplitView = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +68,7 @@ namespace UDP
             this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
+            this.updateFirmwareviaJTAGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MDIParentStrip.SuspendLayout();
             this.MDIStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -258,7 +261,10 @@ namespace UDP
             this.toolStripSplitButtonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripSplitButtonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.replayScriptToolStripMenuItem,
-            this.clearMessagesToolStripMenuItem});
+            this.clearMessagesToolStripMenuItem,
+            this.installUpdaterToolStripMenuItem,
+            this.updateFirmwareToolStripMenuItem,
+            this.updateFirmwareviaJTAGToolStripMenuItem});
             this.toolStripSplitButtonTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButtonTools.Name = "toolStripSplitButtonTools";
             this.toolStripSplitButtonTools.Size = new System.Drawing.Size(50, 22);
@@ -267,16 +273,30 @@ namespace UDP
             // replayScriptToolStripMenuItem
             // 
             this.replayScriptToolStripMenuItem.Name = "replayScriptToolStripMenuItem";
-            this.replayScriptToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.replayScriptToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.replayScriptToolStripMenuItem.Text = "Replay Script";
             this.replayScriptToolStripMenuItem.Click += new System.EventHandler(this.replayScriptToolStripMenuItem_Click);
             // 
             // clearMessagesToolStripMenuItem
             // 
             this.clearMessagesToolStripMenuItem.Name = "clearMessagesToolStripMenuItem";
-            this.clearMessagesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.clearMessagesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.clearMessagesToolStripMenuItem.Text = "Clear Messages";
             this.clearMessagesToolStripMenuItem.Click += new System.EventHandler(this.clearMessagesToolStripMenuItem_Click);
+            // 
+            // installUpdaterToolStripMenuItem
+            // 
+            this.installUpdaterToolStripMenuItem.Name = "installUpdaterToolStripMenuItem";
+            this.installUpdaterToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.installUpdaterToolStripMenuItem.Text = "Install Updater";
+            this.installUpdaterToolStripMenuItem.Click += new System.EventHandler(this.installUpdaterToolStripMenuItem_Click);
+            // 
+            // updateFirmwareToolStripMenuItem
+            // 
+            this.updateFirmwareToolStripMenuItem.Name = "updateFirmwareToolStripMenuItem";
+            this.updateFirmwareToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.updateFirmwareToolStripMenuItem.Text = "Update Firmware (via USB)";
+            this.updateFirmwareToolStripMenuItem.Click += new System.EventHandler(this.updateFirmwareToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
@@ -370,6 +390,13 @@ namespace UDP
             this.ConnectionImageList.Images.SetKeyName(0, "CONNECTED_ICON.bmp");
             this.ConnectionImageList.Images.SetKeyName(1, "DISCONNECTED_ICON.bmp");
             // 
+            // updateFirmwareviaJTAGToolStripMenuItem
+            // 
+            this.updateFirmwareviaJTAGToolStripMenuItem.Name = "updateFirmwareviaJTAGToolStripMenuItem";
+            this.updateFirmwareviaJTAGToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.updateFirmwareviaJTAGToolStripMenuItem.Text = "Update Firmware (via JTAG)";
+            this.updateFirmwareviaJTAGToolStripMenuItem.Click += new System.EventHandler(this.updateFirmwareviaJTAGToolStripMenuItem_Click);
+            // 
             // tclsMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +460,9 @@ namespace UDP
         private System.Windows.Forms.ToolStripMenuItem clearMessagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem installUpdaterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateFirmwareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateFirmwareviaJTAGToolStripMenuItem;
     }
 }
 

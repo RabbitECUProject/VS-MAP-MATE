@@ -77,11 +77,11 @@ namespace UDP
 
             if (boLoad)
             {
-            maszMeasCompuMethodFormat = new String[iMeasureIDX];
-            mastActiveMeasureIndices = new tstActiveMeasureIndices[iMeasureIDX];
-            maiMeasCompuMethodIndices = new int[iMeasureIDX];
-            mfGaugeMax = new double[iMeasureIDX];
-            mfGaugeMin = new double[iMeasureIDX];
+                maszMeasCompuMethodFormat = new String[iMeasureIDX];
+                mastActiveMeasureIndices = new tstActiveMeasureIndices[iMeasureIDX];
+                maiMeasCompuMethodIndices = new int[iMeasureIDX];
+                mfGaugeMax = new double[iMeasureIDX];
+                mfGaugeMin = new double[iMeasureIDX];
             }
 
             iMeasureIDX = 0;
@@ -105,11 +105,11 @@ namespace UDP
                 {
                     if (boLoad == true)
                     {
-                    stActiveMeasureIndices = tclsASAM.stTryAddActiveMeas(maclsWindowElement[iElementIDX].szA2LName, iFormIDX);
-                    mastActiveMeasureIndices[iMeasureIDX].iMeasureQueue = stActiveMeasureIndices.iMeasureQueue;
-                    mastActiveMeasureIndices[iMeasureIDX].iMeasureQueueIDX = stActiveMeasureIndices.iMeasureQueueIDX;
-                    maiMeasCompuMethodIndices[iMeasureIDX] = tclsASAM.iGetCompuMethodIndexFromMeas(maclsWindowElement[iElementIDX].szA2LName, iFormIDX);
-                    vCreateMeasCompuMethodFormat(iMeasureIDX);
+                        stActiveMeasureIndices = tclsASAM.stTryAddActiveMeas(maclsWindowElement[iElementIDX].szA2LName, iFormIDX);
+                        mastActiveMeasureIndices[iMeasureIDX].iMeasureQueue = stActiveMeasureIndices.iMeasureQueue;
+                        mastActiveMeasureIndices[iMeasureIDX].iMeasureQueueIDX = stActiveMeasureIndices.iMeasureQueueIDX;
+                        maiMeasCompuMethodIndices[iMeasureIDX] = tclsASAM.iGetCompuMethodIndexFromMeas(maclsWindowElement[iElementIDX].szA2LName, iFormIDX);
+                        vCreateMeasCompuMethodFormat(iMeasureIDX);
                     }
 
                     mfGaugeMin[iElementIDX - 1] = Convert.ToDouble(maclsWindowElement[iElementIDX].aszPresentationOptions[1]);
@@ -132,7 +132,7 @@ namespace UDP
                     mlstGauge.Add(gauge);
                     miGaugeCount++;
                     iMeasureIDX++;
-                }                
+                }
 
                 if (0 == String.Compare(maclsWindowElement[iElementIDX].szElementType, "window"))
                 {

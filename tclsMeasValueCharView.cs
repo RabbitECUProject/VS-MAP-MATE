@@ -461,8 +461,8 @@ namespace UDP
 
                         if (false == mboMeasEnumMode[iMeasIDX])
                         {
-                        maclsMeasureTextBox[iMeasIDX].Text = szGetScaledData(iMeasCompuMethodIDX, iMeasIDX, sUnscaledData, tenMCVElementType.enMCVMeasure);
-                    }
+                            maclsMeasureTextBox[iMeasIDX].Text = szGetScaledData(iMeasCompuMethodIDX, iMeasIDX, sUnscaledData, tenMCVElementType.enMCVMeasure);
+                        }
                         else
                         {
                             bool boVerbShown = false;
