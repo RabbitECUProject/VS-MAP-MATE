@@ -37,7 +37,6 @@ namespace UDP
         int miGaugeCount;
         bool mboGaugeSweeps;
         bool mboRequestShutdown;
-        bool mboSuspendUpdates;
         System.Timers.Timer mclsGaugeTimer;
         int miGaugeSweepsCount;
 
@@ -535,7 +534,6 @@ namespace UDP
 
         public bool AddMeasure(string measureName, string[] aszPresentationOptions)
         {
-            mboSuspendUpdates = true;
             int iMeasureRemoveIDX = 0;
             int iMeasureIDX;
 
@@ -588,9 +586,6 @@ namespace UDP
             }
 
             Program.vNotifyProgramEvent(tenProgramEvent.enCommRequestDDDIReset, 0, null);
-
-            mboSuspendUpdates = false;
-
             Program.vNotifyProgramEvent(tenProgramEvent.enCommRequestUnSuspend, 0, null);
 
             CreateGauges(miFormIDX, false);

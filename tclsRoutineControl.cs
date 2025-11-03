@@ -24,12 +24,10 @@ namespace UDP
         List<byte> mlstU8RIDList;
         ComboBox mclsRoutinesCombo;
         Button mclsRunButton;
-        int miRoutineCount;
 
         public tclsRoutineControl()
         {
             mlstU8RIDList = new List<byte>();
-            miRoutineCount = 1;
             mclsRoutinesCombo = new ComboBox();
             mclsRoutinesCombo.Left = 20;
             mclsRoutinesCombo.Top = 20;

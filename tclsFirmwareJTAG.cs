@@ -18,11 +18,14 @@ namespace UDP
         MDACFirmwareUpdateInterface.MDACFirmwareUpdate mclsFirmwareUpdateInterface;
         bool mboCombosLoaded;
         float mfMCU1ProgressValidate = 100;
+
+        /* TODO
         float mfMCU2ProgressValidate = 100;
         float mfMCU3ProgressValidate = 100;
         float mfMCU1ProgressProgram = 100;
         float mfMCU2ProgressProgram = 100;
         float mfMCU3ProgressProgram = 100;
+        */
 
         public tclsFirmwareJTAG()
         {
@@ -193,7 +196,7 @@ namespace UDP
                 default: ToolType = MDACFirmwareUpdate.InterfaceType.MDACFirmwareInterfaceCount; break;
             }
 
-            bool verify = mclsFirmwareUpdateInterface.FirmwareVerify(MDACFirmwareUpdate.InterfaceType.MDACFirmwareOpenOCD, comboBoxMCU1ToolPath.SelectedItem.ToString(),
+            bool verify = mclsFirmwareUpdateInterface.FirmwareVerify(ToolType, comboBoxMCU1ToolPath.SelectedItem.ToString(),
                comboBoxMCU1USBCfgPath.SelectedItem.ToString(),
                comboBoxMCU1HWCfgPath.SelectedItem.ToString(),
                AppDomain.CurrentDomain.BaseDirectory + "Firmwares\\" + comboBoxMCU1FirmwareHexPath.SelectedItem.ToString(), 5000, false, 3000);
@@ -639,7 +642,7 @@ namespace UDP
                AppDomain.CurrentDomain.BaseDirectory + "Firmwares\\" + comboBoxMCU3FirmwareHexPath.SelectedItem.ToString(), 1000, false, 3000);
 
             timerProgress.Enabled = true;
-            mfMCU3ProgressValidate = 0;
+            //TODO mfMCU3ProgressValidate = 0;
         }
 
         private void timerProgress_Tick(object sender, EventArgs e)
@@ -670,6 +673,7 @@ namespace UDP
                 }
             }
 
+            /* TODO
             if (mfMCU3ProgressValidate < 100)
             {
                 mfMCU3ProgressValidate += 5;
@@ -693,6 +697,7 @@ namespace UDP
                     timerProgress.Enabled = false;
                 }
             }
+            */
         }
 
         private void buttonMCU2Validate_Click(object sender, EventArgs e)

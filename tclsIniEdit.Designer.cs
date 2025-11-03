@@ -88,7 +88,6 @@ namespace UDP
             this.Name = "tclsIniEdit";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.tclsIniEdit_Load);
-            this.Resize += new System.EventHandler(this.tclsIniEdit_Resize);
             this.SettingsLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

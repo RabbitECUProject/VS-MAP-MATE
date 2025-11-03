@@ -1009,9 +1009,9 @@ namespace UDP
         {
             bool boResult = Program.mAPP_clsUDPComms.boRequestScriptReplay(tenChannelMode.enChannelModeReplayScript);
             
-            if (true == boResult)
+            if (false == boResult)
             {
-
+                MessageBox.Show("Offline, or conditions not correct for script replay");
             }
         }
 
@@ -1191,11 +1191,21 @@ namespace UDP
         private void installUpdaterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeInstallCodePage1, 4);
+
+            if (false == boResult)
+            {
+                MessageBox.Show("Offline, or conditions not correct for firmware installer update");
+            }
         }
 
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool boResult = Program.mAPP_clsUDPComms.boRequestCalPageTransfer(tenChannelMode.enChannelModeFirmwareUpdate, 0);
+
+            if (false == boResult)
+            {
+                MessageBox.Show("Offline, or conditions not correct for firmware update");
+            }
         }
 
         private void updateFirmwareviaJTAGToolStripMenuItem_Click(object sender, EventArgs e)

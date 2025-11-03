@@ -934,7 +934,6 @@ namespace UDP
     {
         public string szCharacteristicName;
         public UInt32 u32DataPointCount;
-        private UInt32 u32DataIDX = 0;
 
         public tclsCalibrationElement(List<String> lstInitString)
         {

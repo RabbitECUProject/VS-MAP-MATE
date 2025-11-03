@@ -638,7 +638,6 @@ namespace UDP
         public bool boTransferCallBack(ref UInt32 u32TargetAddress)
         {
             bool boTransferComplete = false;
-            bool boResult = false;
 
             switch (mstTransferPageCB.enChannelMode)
             {
@@ -824,6 +823,7 @@ namespace UDP
                     break;
                 }
             }
+
             return boTransferComplete;
         }
 
@@ -1096,7 +1096,7 @@ namespace UDP
         {
             bool boResult = false;
 
-            if (tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode)
+            if ((tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode) && (true == Program.mboCommsOnline))
             {
                 if (tenChannelMode.enChannelModeDownloading == enChannelMode)
                 {
@@ -1155,7 +1155,7 @@ namespace UDP
         {
             bool boResult = false;
 
-            if (tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode)
+            if ((tenChannelMode.enChannelModeNone == mstTransferPageCB.enChannelMode) && (true == Program.mboCommsOnline))
             {
                 boResult = vSetReplayScriptPath();
 

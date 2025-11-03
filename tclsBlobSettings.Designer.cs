@@ -44,12 +44,12 @@
             this.wizardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxArrayInput = new System.Windows.Forms.GroupBox();
             this.groupBoxMissingToothInput = new System.Windows.Forms.GroupBox();
-            this.comboBoxMissing1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxMissing2 = new System.Windows.Forms.ComboBox();
-            this.comboBoxMissing3 = new System.Windows.Forms.ComboBox();
-            this.comboBoxTeethTotal = new System.Windows.Forms.ComboBox();
+            this.buttonInputToothPattern = new System.Windows.Forms.Button();
             this.comboBoxMissing4 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.comboBoxTeethTotal = new System.Windows.Forms.ComboBox();
+            this.comboBoxMissing3 = new System.Windows.Forms.ComboBox();
+            this.comboBoxMissing2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxMissing1 = new System.Windows.Forms.ComboBox();
             this.toolStripConfiguration.SuspendLayout();
             this.groupBoxArrayInput.SuspendLayout();
             this.groupBoxMissingToothInput.SuspendLayout();
@@ -118,13 +118,13 @@
             this.toolStripDropDownButtonTrigger.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonTrigger.Image")));
             this.toolStripDropDownButtonTrigger.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonTrigger.Name = "toolStripDropDownButtonTrigger";
-            this.toolStripDropDownButtonTrigger.Size = new System.Drawing.Size(133, 22);
+            this.toolStripDropDownButtonTrigger.Size = new System.Drawing.Size(134, 22);
             this.toolStripDropDownButtonTrigger.Text = "Trigger Configuration";
             // 
             // triggerWizardToolStripMenuItem
             // 
             this.triggerWizardToolStripMenuItem.Name = "triggerWizardToolStripMenuItem";
-            this.triggerWizardToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.triggerWizardToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.triggerWizardToolStripMenuItem.Text = "Trigger Wizard";
             this.triggerWizardToolStripMenuItem.Click += new System.EventHandler(this.triggerWizardToolStripMenuItem_Click);
             // 
@@ -197,7 +197,7 @@
             // 
             // groupBoxMissingToothInput
             // 
-            this.groupBoxMissingToothInput.Controls.Add(this.button2);
+            this.groupBoxMissingToothInput.Controls.Add(this.buttonInputToothPattern);
             this.groupBoxMissingToothInput.Controls.Add(this.comboBoxMissing4);
             this.groupBoxMissingToothInput.Controls.Add(this.comboBoxTeethTotal);
             this.groupBoxMissingToothInput.Controls.Add(this.comboBoxMissing3);
@@ -210,37 +210,16 @@
             this.groupBoxMissingToothInput.TabStop = false;
             this.groupBoxMissingToothInput.Text = "Missing Tooth Input";
             // 
-            // comboBoxMissing1
+            // buttonInputToothPattern
             // 
-            this.comboBoxMissing1.FormattingEnabled = true;
-            this.comboBoxMissing1.Location = new System.Drawing.Point(181, 18);
-            this.comboBoxMissing1.Name = "comboBoxMissing1";
-            this.comboBoxMissing1.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxMissing1.TabIndex = 0;
-            // 
-            // comboBoxMissing2
-            // 
-            this.comboBoxMissing2.FormattingEnabled = true;
-            this.comboBoxMissing2.Location = new System.Drawing.Point(308, 18);
-            this.comboBoxMissing2.Name = "comboBoxMissing2";
-            this.comboBoxMissing2.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxMissing2.TabIndex = 1;
-            // 
-            // comboBoxMissing3
-            // 
-            this.comboBoxMissing3.FormattingEnabled = true;
-            this.comboBoxMissing3.Location = new System.Drawing.Point(435, 18);
-            this.comboBoxMissing3.Name = "comboBoxMissing3";
-            this.comboBoxMissing3.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxMissing3.TabIndex = 2;
-            // 
-            // comboBoxTeethTotal
-            // 
-            this.comboBoxTeethTotal.FormattingEnabled = true;
-            this.comboBoxTeethTotal.Location = new System.Drawing.Point(6, 18);
-            this.comboBoxTeethTotal.Name = "comboBoxTeethTotal";
-            this.comboBoxTeethTotal.Size = new System.Drawing.Size(154, 21);
-            this.comboBoxTeethTotal.TabIndex = 3;
+            this.buttonInputToothPattern.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.buttonInputToothPattern.Location = new System.Drawing.Point(825, 15);
+            this.buttonInputToothPattern.Name = "buttonInputToothPattern";
+            this.buttonInputToothPattern.Size = new System.Drawing.Size(130, 25);
+            this.buttonInputToothPattern.TabIndex = 5;
+            this.buttonInputToothPattern.Text = "Input Tooth Pattern";
+            this.buttonInputToothPattern.UseVisualStyleBackColor = false;
+            this.buttonInputToothPattern.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBoxMissing4
             // 
@@ -250,16 +229,37 @@
             this.comboBoxMissing4.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMissing4.TabIndex = 4;
             // 
-            // button2
+            // comboBoxTeethTotal
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button2.Location = new System.Drawing.Point(825, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 25);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Input Tooth Pattern";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.comboBoxTeethTotal.FormattingEnabled = true;
+            this.comboBoxTeethTotal.Location = new System.Drawing.Point(6, 18);
+            this.comboBoxTeethTotal.Name = "comboBoxTeethTotal";
+            this.comboBoxTeethTotal.Size = new System.Drawing.Size(154, 21);
+            this.comboBoxTeethTotal.TabIndex = 3;
+            // 
+            // comboBoxMissing3
+            // 
+            this.comboBoxMissing3.FormattingEnabled = true;
+            this.comboBoxMissing3.Location = new System.Drawing.Point(435, 18);
+            this.comboBoxMissing3.Name = "comboBoxMissing3";
+            this.comboBoxMissing3.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMissing3.TabIndex = 2;
+            // 
+            // comboBoxMissing2
+            // 
+            this.comboBoxMissing2.FormattingEnabled = true;
+            this.comboBoxMissing2.Location = new System.Drawing.Point(308, 18);
+            this.comboBoxMissing2.Name = "comboBoxMissing2";
+            this.comboBoxMissing2.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMissing2.TabIndex = 1;
+            // 
+            // comboBoxMissing1
+            // 
+            this.comboBoxMissing1.FormattingEnabled = true;
+            this.comboBoxMissing1.Location = new System.Drawing.Point(181, 18);
+            this.comboBoxMissing1.Name = "comboBoxMissing1";
+            this.comboBoxMissing1.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMissing1.TabIndex = 0;
             // 
             // tclsBlobSettings
             // 
@@ -288,14 +288,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonPrimary;
         private System.Windows.Forms.Button buttonSecondary;
         private System.Windows.Forms.Button buttonSync;
         private System.Windows.Forms.TextBox textBoxPatternInput;
         private System.Windows.Forms.ToolStrip toolStripConfiguration;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonTrigger;
-        private System.Windows.Forms.ToolStripMenuItem loadFromLibraryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem triggerWizardToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonHelp;
         private System.Windows.Forms.ToolStripMenuItem configurationManualToolStripMenuItem;
@@ -305,7 +303,7 @@
         private System.Windows.Forms.ToolStripMenuItem wizardToolStripMenuItem1;
         private System.Windows.Forms.GroupBox groupBoxArrayInput;
         private System.Windows.Forms.GroupBox groupBoxMissingToothInput;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonInputToothPattern;
         private System.Windows.Forms.ComboBox comboBoxMissing4;
         private System.Windows.Forms.ComboBox comboBoxTeethTotal;
         private System.Windows.Forms.ComboBox comboBoxMissing3;

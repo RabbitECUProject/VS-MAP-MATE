@@ -23,7 +23,6 @@ namespace UDP
 {
     public partial class tclsTuningTargetDisplay : Form
     {
-        int miData;
         float mfXPercent;
         float mfYPercent;
         int miDelay;

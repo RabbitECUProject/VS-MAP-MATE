@@ -71,14 +71,6 @@ namespace UDP
         int miTuningRetVal;
         int miAutoTuneWait;
 
-        enum tenTuningMode
-        {
-            enNone,
-            enVE
-        }
-
-        tenTuningMode menTuningMode;
-
         public tclsMeasCurveMapView(int iFormIDX, bool boIs3D)
         {
             InitializeComponent();
@@ -142,8 +134,6 @@ namespace UDP
 
             miOldCellChangedErrColIDX = -1;
             miOldCellChangedErrRowIDX = -1;
-
-            menTuningMode = tenTuningMode.enNone;
             mclsTuningDisplay = null;
         }
 
@@ -396,17 +386,11 @@ namespace UDP
                 if (mszWindowLabel.Contains("Volumetric Efficiency"))
                 {
                     mclsTuningDisplay = new tclsTuningTargetDisplay();
-
-                    menTuningMode = tenTuningMode.enVE;
                     mclsTuningDisplay.SetLabels("TRGT:", "FDBACK:");
                     mclsTuningDisplay.SetScaling(2, 2);
                     mclsTuningDisplay.SetTarget(0, 0xffff, 0, 0xffff);
                     mclsTuningDisplay.MdiParent = Program.mFormUDP;
                     mclsTuningDisplay.Show();
-                }
-                else
-                {
-                    menTuningMode = tenTuningMode.enNone;
                 }
             }
             else
@@ -414,12 +398,6 @@ namespace UDP
                 if (mszWindowLabel.Contains("Volumetric Efficiency"))
                 {
                     mclsTuningDisplay.Show();
-                    menTuningMode = tenTuningMode.enVE;
-                }
-                else
-                {
-                    mclsTuningDisplay.Hide();
-                    menTuningMode = tenTuningMode.enNone;
                 }
             }
         }

@@ -58,22 +58,7 @@ namespace ElementHostGaugeTest
             _GaugeAlertAngleEnd = GaugeAlertAngleEnd;
             _GaugeAlarmAngleStart = GaugeAlarmAngleStart;
             _GaugeAlarmAngleEnd = GaugeAlarmAngleEnd;
-
-            double ScaleGranularity = 1;
-
-            if (0 == ((int)GaugeMinVal % 0.1) & (0 == ((int)GaugeMaxVal % 0.1))) { ScaleGranularity = 0.1; }
-            if (0 == ((int)GaugeMinVal % 0.5) & (0 == ((int)GaugeMaxVal % 0.5))) { ScaleGranularity = 0.5; }
-            if (0 == ((int)GaugeMinVal % 1) & (0 == ((int)GaugeMaxVal % 1))) { ScaleGranularity = 1; }
-            if (0 == ((int)GaugeMinVal % 5) & (0 == ((int)GaugeMaxVal % 5))) { ScaleGranularity = 5; }
-            if (0 == ((int)GaugeMinVal % 10) & (0 == ((int)GaugeMaxVal % 10))) { ScaleGranularity = 10; }
-            if (0 == ((int)GaugeMinVal % 50) & (0 == ((int)GaugeMaxVal % 50))) { ScaleGranularity = 50; }
-            if (0 == ((int)GaugeMinVal % 100) & (0 == ((int)GaugeMaxVal % 100))) { ScaleGranularity = 100; }
-            if (0 == ((int)GaugeMinVal % 500) & (0 == ((int)GaugeMaxVal % 500))) { ScaleGranularity = 500; }
-            if (0 == ((int)GaugeMinVal % 1000) & (0 == ((int)GaugeMaxVal % 1000))) { ScaleGranularity = 1000; }
-
-            //int Grads = 1 + (((int)GaugeMaxVal - (int)GaugeMinVal) / (int)ScaleGranularity);
-            int Grads = 11;
-            _GaugeMajorTickCount = (double)Grads;
+            _GaugeMajorTickCount = 11f;
         }
 
         public static GaugeModelView GaugeModelViewNewGauge(string PrimaryScaleText, double GaugeMinVal, double GaugeMaxVal, double GaugeAngleStart, double GaugeAngleEnd, double GaugeNormalAngleStart, double GaugeNormalAngleEnd, double GaugeAlertAngleStart, double GaugeAlertAngleEnd, double GaugeAlarmAngleStart, double GaugeAlarmAngleEnd)

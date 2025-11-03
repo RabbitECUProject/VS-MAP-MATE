@@ -18,12 +18,10 @@ namespace UDP
     class tclsECUMemoryPage
     {
         byte[] mau8WorkingData;
-        UInt32 mu32WorkingDataBase;
 
         public tclsECUMemoryPage()
         {
             mau8WorkingData = new byte[65536];
-            mu32WorkingDataBase = 0xffffffff;
         }
     }
 }

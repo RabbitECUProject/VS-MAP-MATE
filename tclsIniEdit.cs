@@ -611,54 +611,5 @@ namespace UDP
         {
             this.Hide();
         }
-
-        private void tclsIniEdit_Resize(object sender, EventArgs e)
-        {
-            int iYOffset = 10;
-
-            /*
-
-            if (null != maclsLabelSection)
-            {
-                foreach (Label sectionLabel in maclsLabelSection)
-                {
-                    if (null != sectionLabel)
-                    {
-                        sectionLabel.Location = new System.Drawing.Point(10, iYOffset);
-                        sectionLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
-                }
-
-                iYOffset = 10;
-
-                foreach (Label settingLabel in maclsLabelSetting)
-                {
-                    if (null != settingLabel)
-                    {
-                        settingLabel.Location = new System.Drawing.Point((int)(0.20 * this.ClientRectangle.Width), iYOffset);
-                        settingLabel.Size = new System.Drawing.Size((int)(0.18 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
-                }
-
-                iYOffset = 10;
-
-                foreach (ComboBox comboBox in maclsSettingComboBox)
-                {
-                    if (null != comboBox)
-                    {
-                        comboBox.Location = new System.Drawing.Point((int)(0.40 * this.ClientRectangle.Width), iYOffset);
-                        comboBox.Size = new System.Drawing.Size((int)(0.55 * this.ClientRectangle.Width), 15);
-                    }
-
-                    iYOffset += 25;
-                }
-            }
-
-    */
-        }
     }
 }
